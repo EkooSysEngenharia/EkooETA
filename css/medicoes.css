@@ -1,0 +1,491 @@
+.modulo-medicoes {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cabecalho-modulo-medicoes {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.botao-voltar-medicoes {
+    margin-bottom: 14px;
+    padding: 9px 13px;
+
+    border: 1px solid #d7e2dd;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #007238;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-voltar-medicoes:hover {
+    background: #e8f7ef;
+}
+
+.cabecalho-modulo-medicoes h1 {
+    color: #007238;
+    font-size: 29px;
+}
+
+.cabecalho-modulo-medicoes p {
+    margin-top: 7px;
+    color: #748188;
+}
+
+.vinculo-medicoes {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+
+    margin-top: 16px;
+}
+
+.vinculo-medicoes div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    min-width: 190px;
+    padding: 11px 13px;
+
+    border: 1px solid #dfe9e4;
+    border-radius: 11px;
+
+    background: #ffffff;
+}
+
+.vinculo-medicoes small {
+    color: #7b898f;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.vinculo-medicoes strong {
+    color: #344149;
+    font-size: 14px;
+}
+
+.dados-visita-medicao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    padding: 20px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 16px;
+
+    background: #ffffff;
+}
+
+.campo-medicao-geral {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo-medicao-geral-largo {
+    grid-column: 1 / -1;
+}
+
+.campo-medicao-geral label,
+.grade-campos-ponto-medicao label {
+    color: #344149;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.campo-medicao-geral input,
+.campo-medicao-geral textarea,
+.grade-campos-ponto-medicao input {
+    width: 100%;
+    padding: 13px;
+
+    border: 1px solid #d7e2dd;
+    border-radius: 11px;
+    outline: none;
+
+    background: #ffffff;
+    color: #263238;
+
+    font: inherit;
+}
+
+.campo-medicao-geral input:focus,
+.campo-medicao-geral textarea:focus,
+.grade-campos-ponto-medicao input:focus {
+    border-color: #009846;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0, 152, 70, 0.12);
+}
+
+.cabecalho-pontos-medicao,
+.cabecalho-historico-medicoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 20px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 15px;
+
+    background: #ffffff;
+}
+
+.cabecalho-pontos-medicao h2,
+.cabecalho-historico-medicoes h2 {
+    color: #263238;
+    font-size: 20px;
+}
+
+.cabecalho-pontos-medicao p,
+.cabecalho-historico-medicoes p {
+    margin-top: 5px;
+    color: #78858b;
+    font-size: 14px;
+}
+
+.cabecalho-pontos-medicao > span,
+.cabecalho-historico-medicoes > strong {
+    min-width: 90px;
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background: #e8f7ef;
+    color: #007238;
+
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.lista-pontos-medicao {
+    display: grid;
+    gap: 15px;
+}
+
+.estado-vazio-medicoes {
+    min-height: 210px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    border: 1px dashed #c8d7d0;
+    border-radius: 15px;
+
+    background: #ffffff;
+    color: #748188;
+
+    text-align: center;
+}
+
+.estado-vazio-medicoes > span {
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+.estado-vazio-medicoes strong {
+    color: #45535a;
+}
+
+.estado-vazio-medicoes p {
+    margin-top: 7px;
+    font-size: 14px;
+}
+
+.card-ponto-medicao {
+    padding: 20px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 6px 18px
+        rgba(31, 41, 51, 0.05);
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        transform 0.2s;
+}
+
+.card-ponto-medicao.selecionado {
+    border-color: #8bc9a8;
+
+    box-shadow:
+        0 10px 24px
+        rgba(0, 152, 70, 0.10);
+
+    transform: translateY(-1px);
+}
+
+.topo-card-ponto-medicao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    margin-bottom: 16px;
+}
+
+.topo-card-ponto-medicao h3 {
+    color: #263238;
+    font-size: 18px;
+}
+
+.topo-card-ponto-medicao p {
+    margin-top: 4px;
+    color: #78858b;
+    font-size: 13px;
+}
+
+.seletor-ponto-medicao {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 9px 12px;
+
+    border-radius: 10px;
+
+    background: #f3f7f5;
+    color: #45535a;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.seletor-ponto-medicao input {
+    width: 17px;
+    height: 17px;
+
+    accent-color: #009846;
+}
+
+.grade-campos-ponto-medicao {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 14px;
+}
+
+.grade-campos-ponto-medicao > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.grade-campos-ponto-medicao input:disabled {
+    background: #f4f6f5;
+    color: #9aa4a0;
+    cursor: not-allowed;
+}
+
+.campo-observacao-ponto-medicao {
+    grid-column: auto;
+}
+
+.mensagem-medicoes {
+    min-height: 22px;
+
+    margin-top: 16px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.mensagem-medicoes.erro {
+    color: #c62828;
+}
+
+.mensagem-medicoes.sucesso {
+    color: #007238;
+}
+
+.acoes-medicoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 18px;
+    padding-top: 18px;
+
+    border-top: 1px solid #edf2ef;
+}
+
+.botao-limpar-medicoes,
+.botao-salvar-medicoes {
+    min-height: 44px;
+    padding: 0 18px;
+
+    border-radius: 11px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-limpar-medicoes {
+    border: 1px solid #d7e2dd;
+
+    background: #ffffff;
+    color: #59666d;
+}
+
+.botao-limpar-medicoes:hover {
+    background: #f3f7f5;
+}
+
+.botao-salvar-medicoes {
+    border: none;
+
+    background: #009846;
+    color: #ffffff;
+
+    box-shadow:
+        0 7px 16px
+        rgba(0, 152, 70, 0.17);
+}
+
+.botao-salvar-medicoes:hover {
+    background: #007238;
+}
+
+.botao-salvar-medicoes:disabled,
+.botao-limpar-medicoes:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.historico-resumo-medicoes {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.lista-historico-medicoes {
+    display: grid;
+    gap: 10px;
+}
+
+.item-historico-medicao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    padding: 15px 17px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 13px;
+
+    background: #ffffff;
+}
+
+.item-historico-medicao > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-historico-medicao strong {
+    color: #344149;
+}
+
+.item-historico-medicao span {
+    color: #7b898f;
+    font-size: 13px;
+}
+
+.valores-historico-medicao {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.valores-historico-medicao span {
+    padding: 7px 10px;
+
+    border-radius: 9px;
+
+    background: #f3f7f5;
+    color: #59666d;
+}
+
+.valores-historico-medicao strong {
+    color: #007238;
+}
+
+@media (max-width: 900px) {
+    .grade-campos-ponto-medicao {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .campo-observacao-ponto-medicao {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 760px) {
+    .dados-visita-medicao {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-medicao-geral-largo {
+        grid-column: auto;
+    }
+
+    .cabecalho-pontos-medicao,
+    .cabecalho-historico-medicoes,
+    .topo-card-ponto-medicao,
+    .item-historico-medicao {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .grade-campos-ponto-medicao {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-observacao-ponto-medicao {
+        grid-column: auto;
+    }
+
+    .valores-historico-medicao {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-ponto-medicao {
+        padding: 16px;
+    }
+
+    .acoes-medicoes {
+        flex-direction: column-reverse;
+    }
+
+    .botao-limpar-medicoes,
+    .botao-salvar-medicoes {
+        width: 100%;
+    }
+}

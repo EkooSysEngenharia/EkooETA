@@ -1,0 +1,323 @@
+.modulo-relatorios {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.cabecalho-modulo-relatorios {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cabecalho-modulo-relatorios h1 {
+    color: #007238;
+    font-size: 29px;
+}
+
+.cabecalho-modulo-relatorios p:last-child {
+    margin-top: 7px;
+    color: #748188;
+}
+
+.acoes-relatorios {
+    display: flex;
+    gap: 10px;
+}
+
+.acoes-relatorios button {
+    min-height: 44px;
+    padding: 0 16px;
+
+    border-radius: 11px;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-exportar-relatorio {
+    border: 1px solid #bcd7c9;
+
+    background: #ffffff;
+    color: #007238;
+}
+
+.botao-imprimir-relatorio {
+    border: none;
+
+    background: #009846;
+    color: #ffffff;
+}
+
+.acoes-relatorios button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.filtros-relatorios {
+    display: grid;
+    grid-template-columns:
+        1.2fr
+        1.2fr
+        1fr
+        1fr
+        auto;
+    gap: 12px;
+
+    padding: 18px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 15px;
+
+    background: #ffffff;
+}
+
+.filtros-relatorios > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.filtros-relatorios label {
+    color: #344149;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.filtros-relatorios input,
+.filtros-relatorios select,
+.filtros-relatorios button {
+    min-height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d7e2dd;
+    border-radius: 10px;
+
+    background: #ffffff;
+    font: inherit;
+}
+
+.filtros-relatorios input:focus,
+.filtros-relatorios select:focus {
+    border-color: #009846;
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(0, 152, 70, 0.12);
+}
+
+.filtros-relatorios > button {
+    align-self: end;
+
+    border: none;
+
+    background: #009846;
+    color: #ffffff;
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.resumo-relatorios {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.resumo-relatorios article {
+    padding: 18px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 14px;
+
+    background: #ffffff;
+}
+
+.resumo-relatorios small {
+    display: block;
+
+    color: #76838a;
+    font-size: 12px;
+}
+
+.resumo-relatorios strong {
+    display: block;
+    margin-top: 4px;
+
+    color: #263238;
+    font-size: 24px;
+}
+
+.area-tabela-relatorio {
+    padding: 20px;
+
+    border: 1px solid #e0e9e5;
+    border-radius: 16px;
+
+    background: #ffffff;
+}
+
+.cabecalho-tabela-relatorio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 16px;
+}
+
+.cabecalho-tabela-relatorio h2 {
+    color: #263238;
+    font-size: 20px;
+}
+
+.cabecalho-tabela-relatorio p {
+    margin-top: 4px;
+
+    color: #78858b;
+    font-size: 14px;
+}
+
+.cabecalho-tabela-relatorio > strong {
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    background: #e8f7ef;
+    color: #007238;
+
+    font-size: 12px;
+}
+
+.tabela-relatorio-wrapper {
+    overflow-x: auto;
+}
+
+.tabela-relatorio {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 13px;
+}
+
+.tabela-relatorio th,
+.tabela-relatorio td {
+    padding: 11px 10px;
+
+    border-bottom: 1px solid #edf2ef;
+
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabela-relatorio th {
+    color: #59666d;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.tabela-relatorio td {
+    color: #344149;
+}
+
+.estado-vazio-relatorio {
+    min-height: 230px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    border: 1px dashed #c8d7d0;
+    border-radius: 14px;
+
+    color: #748188;
+    text-align: center;
+}
+
+.estado-vazio-relatorio > span {
+    margin-bottom: 10px;
+    font-size: 40px;
+}
+
+.estado-vazio-relatorio strong {
+    color: #45535a;
+}
+
+.estado-vazio-relatorio p {
+    margin-top: 7px;
+}
+
+@media (max-width: 1050px) {
+    .filtros-relatorios {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .resumo-relatorios {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .cabecalho-modulo-relatorios,
+    .cabecalho-tabela-relatorio {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .acoes-relatorios {
+        width: 100%;
+    }
+
+    .acoes-relatorios button {
+        flex: 1;
+    }
+
+    .filtros-relatorios {
+        grid-template-columns: 1fr;
+    }
+
+    .resumo-relatorios {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    .menu-lateral,
+    .acoes-relatorios,
+    .filtros-relatorios,
+    .cabecalho-dashboard,
+    .botao-voltar-dashboard {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+    }
+
+    .conteudo-principal {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .area-tabela-relatorio,
+    .resumo-relatorios article {
+        border: 1px solid #cccccc;
+        box-shadow: none;
+    }
+
+    .tabela-relatorio {
+        font-size: 10px;
+    }
+
+    .tabela-relatorio th,
+    .tabela-relatorio td {
+        padding: 6px;
+    }
+}

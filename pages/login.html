@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | Ekoo Manager</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/login.css"
+    >
+</head>
+
+<body>
+
+    <main class="pagina-login">
+
+        <section class="cartao-login">
+
+            <img
+                class="logo-login"
+                src="../assets/logo.png"
+                alt="Ekoo Sys Engenharia"
+            >
+
+            <h1>Ekoo Manager</h1>
+
+            <p class="subtitulo-login">
+                Plataforma de Gestão Ambiental
+            </p>
+
+            <form id="formLogin">
+
+                <div class="campo-login">
+
+                    <label for="emailLogin">
+                        E-mail
+                    </label>
+
+                    <input
+                        id="emailLogin"
+                        type="email"
+                        autocomplete="email"
+                        placeholder="Digite seu e-mail"
+                        required
+                    >
+
+                </div>
+
+                <div class="campo-login">
+
+                    <label for="senhaLogin">
+                        Senha
+                    </label>
+
+                    <input
+                        id="senhaLogin"
+                        type="password"
+                        autocomplete="current-password"
+                        placeholder="Digite sua senha"
+                        minlength="6"
+                        required
+                    >
+
+                </div>
+
+                <div
+                    id="mensagemLogin"
+                    class="mensagem-login"
+                ></div>
+
+                <button
+                    id="botaoEntrar"
+                    class="botao-entrar"
+                    type="submit"
+                >
+                    Entrar
+                </button>
+                
+                <div class="divisor-login">
+    <span>ou</span>
+</div>
+<button
+    id="botaoCriarConta"
+    class="botao-criar-conta"
+    type="button"
+>
+    Criar conta
+</button>
+
+                <button
+                    id="botaoRecuperarSenha"
+                    class="botao-recuperar"
+                    type="button"
+                >
+                    Esqueci minha senha
+                </button>
+
+            </form>
+
+            <p class="rodape-login">
+                Ekoo Sys Engenharia
+            </p>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/login.js"
+    ></script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Criar conta | Ekoo Manager</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/cadastro.css"
+    >
+</head>
+
+<body>
+
+    <main class="pagina-cadastro">
+
+        <section class="cartao-cadastro">
+
+            <img
+                class="logo-cadastro"
+                src="../assets/logo.png"
+                alt="Ekoo Sys Engenharia"
+            >
+
+            <h1>Criar conta</h1>
+
+            <p class="subtitulo-cadastro">
+                Crie o ambiente da sua empresa no Ekoo Manager
+            </p>
+
+            <form id="formCadastro">
+
+                <div class="grade-cadastro">
+
+                    <div class="campo-cadastro">
+                        <label for="nomeCadastro">
+                            Nome completo
+                        </label>
+
+                        <input
+                            id="nomeCadastro"
+                            type="text"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="empresaCadastro">
+                            Empresa
+                        </label>
+
+                        <input
+                            id="empresaCadastro"
+                            type="text"
+                            maxlength="120"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="cnpjCadastro">
+                            CNPJ
+                        </label>
+
+                        <input
+                            id="cnpjCadastro"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="18"
+                            placeholder="00.000.000/0000-00"
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="telefoneCadastro">
+                            Telefone
+                        </label>
+
+                        <input
+                            id="telefoneCadastro"
+                            type="tel"
+                            maxlength="20"
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="cidadeCadastro">
+                            Cidade
+                        </label>
+
+                        <input
+                            id="cidadeCadastro"
+                            type="text"
+                            maxlength="80"
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="estadoCadastro">
+                            Estado
+                        </label>
+
+                        <select id="estadoCadastro">
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="RS">RS</option>
+                            <option value="SC">SC</option>
+                            <option value="PR">PR</option>
+                        </select>
+                    </div>
+
+                    <div class="campo-cadastro campo-largo">
+                        <label for="emailCadastro">
+                            E-mail
+                        </label>
+
+                        <input
+                            id="emailCadastro"
+                            type="email"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="senhaCadastro">
+                            Senha
+                        </label>
+
+                        <input
+                            id="senhaCadastro"
+                            type="password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo-cadastro">
+                        <label for="confirmarSenhaCadastro">
+                            Confirmar senha
+                        </label>
+
+                        <input
+                            id="confirmarSenhaCadastro"
+                            type="password"
+                            minlength="6"
+                            autocomplete="new-password"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div
+                    id="mensagemCadastro"
+                    class="mensagem-cadastro"
+                ></div>
+
+                <button
+                    id="botaoCadastrar"
+                    class="botao-cadastrar"
+                    type="submit"
+                >
+                    Criar conta
+                </button>
+
+                <button
+                    id="voltarLogin"
+                    class="botao-voltar"
+                    type="button"
+                >
+                    Voltar para o login
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script
+        type="module"
+        src="../js/cadastro.js"
+    ></script>
+
+</body>
+</html>

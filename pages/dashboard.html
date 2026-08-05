@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | Ekoo Manager</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/dashboard.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/eta.css"
+    >
+</head>
+
+<body>
+
+    <div class="aplicacao">
+
+        <aside class="menu-lateral">
+
+            <div class="marca-menu">
+                <img
+                    src="../assets/logo.png"
+                    alt="Ekoo Sys Engenharia"
+                >
+
+                <div>
+                    <strong>Ekoo Manager</strong>
+                    <span>Gestão Ambiental</span>
+                </div>
+            </div>
+
+            <nav class="navegacao">
+
+                <button
+                    id="botaoDashboard"
+                    class="item-menu ativo"
+                    type="button"
+                >
+                    🏠 Dashboard
+                </button>
+
+                <button
+                    id="botaoModuloEta"
+                    class="item-menu"
+                    type="button"
+                >
+                    💧 ETA
+                </button>
+
+                <button
+                    id="botaoClientes"
+                    class="item-menu"
+                    type="button"
+                >
+                    👥 Clientes
+                </button>
+
+                <button
+                    id="botaoRelatorios"
+                    class="item-menu"
+                    type="button"
+                >
+                    📄 Relatórios
+                </button>
+
+                <button
+                    id="botaoConfiguracoes"
+                    class="item-menu"
+                    type="button"
+                >
+                    ⚙️ Configurações
+                </button>
+
+            </nav>
+
+            <button
+                id="botaoSair"
+                class="botao-sair"
+                type="button"
+            >
+                🚪 Sair
+            </button>
+
+        </aside>
+
+        <main
+            id="conteudoPrincipal"
+            class="conteudo-principal"
+        >
+
+            <section
+                id="telaDashboard"
+                class="tela-modulo"
+            >
+
+                <header class="cabecalho-dashboard">
+
+                    <div>
+                        <p class="saudacao">
+                            Olá,
+                            <strong id="nomeUsuario">
+                                usuário
+                            </strong>
+                            👋
+                        </p>
+
+                        <h1>Dashboard</h1>
+
+                        <p>
+                            Bem-vindo ao Ekoo Manager
+                        </p>
+                    </div>
+
+                    <div class="status-nuvem">
+                        ☁️ Dados sincronizados
+                    </div>
+
+                </header>
+
+                <section class="grade-indicadores">
+
+                    <article class="cartao-indicador">
+                        <span class="icone-indicador">
+                            💧
+                        </span>
+
+                        <div>
+                            <p>ETAs</p>
+                            <strong id="totalEtas">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="cartao-indicador">
+                        <span class="icone-indicador">
+                            📍
+                        </span>
+
+                        <div>
+                            <p>Pontos</p>
+                            <strong id="totalPontos">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="cartao-indicador">
+                        <span class="icone-indicador">
+                            🧪
+                        </span>
+
+                        <div>
+                            <p>Medições</p>
+                            <strong id="totalMedicoes">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="cartao-indicador alerta">
+                        <span class="icone-indicador">
+                            ⚠️
+                        </span>
+
+                        <div>
+                            <p>Alertas</p>
+                            <strong id="totalAlertas">0</strong>
+                        </div>
+                    </article>
+
+                </section>
+
+                <section class="area-acoes">
+
+                    <div class="cabecalho-secao">
+                        <div>
+                            <h2>Ações rápidas</h2>
+
+                            <p>
+                                Acesse os principais recursos
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grade-acoes">
+
+                        <button
+                            id="botaoNovaMedicao"
+                            class="acao-rapida destaque"
+                            type="button"
+                        >
+                            <span>➕</span>
+
+                            <div>
+                                <strong>Nova medição</strong>
+
+                                <small>
+                                    Registrar análise de cloro e pH
+                                </small>
+                            </div>
+                        </button>
+
+                        <button
+                            id="botaoClientesRapido"
+                            class="acao-rapida"
+                            type="button"
+                        >
+                            <span>👥</span>
+
+                            <div>
+                                <strong>Clientes</strong>
+
+                                <small>
+                                    Gerenciar empresas atendidas
+                                </small>
+                            </div>
+                        </button>
+
+                        <button
+                            id="botaoRelatoriosRapido"
+                            class="acao-rapida"
+                            type="button"
+                        >
+                            <span>📄</span>
+
+                            <div>
+                                <strong>Relatórios</strong>
+
+                                <small>
+                                    Gerar Excel e PDF
+                                </small>
+                            </div>
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <section class="area-resumo">
+
+                    <div>
+                        <h2>Resumo da operação</h2>
+
+                        <p>
+                            Os dados serão exibidos aqui depois
+                            da migração para a nuvem.
+                        </p>
+                    </div>
+
+                    <div class="cartao-resumo">
+                        <strong>
+                            Nenhuma atividade registrada ainda
+                        </strong>
+
+                        <span>
+                            Cadastre sua primeira ETA para começar.
+                        </span>
+                    </div>
+
+                </section>
+
+            </section>
+
+            <section
+                id="conteudoModulo"
+                class="tela-modulo escondido"
+            >
+            </section>
+
+        </main>
+
+    </div>
+
+    <script
+        type="module"
+        src="../js/dashboard.js"
+    ></script>
+
+</body>
+
+</html>
