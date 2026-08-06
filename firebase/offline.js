@@ -1,3 +1,41 @@
+const CHAVE_PENDENTES =
+    "ekoo-pendencias-offline";
+
+
+function registrarPendencia(
+    descricao
+) {
+    window.dispatchEvent(
+        new CustomEvent(
+            "ekoo-escrita-pendente",
+            {
+                detail: {
+                    descricao
+                }
+            }
+        )
+    );
+}
+
+
+function registrarErro(
+    descricao,
+    erro
+) {
+    window.dispatchEvent(
+        new CustomEvent(
+            "ekoo-erro-sincronizacao",
+            {
+                detail: {
+                    descricao,
+                    erro
+                }
+            }
+        )
+    );
+}
+
+
 export async function executarEscritaOffline(
     criarPromessa,
     descricao = "alteração"
@@ -8,19 +46,17 @@ export async function executarEscritaOffline(
         promessa =
             criarPromessa();
     } catch (erro) {
+        registrarErro(
+            descricao,
+            erro
+        );
+
         throw erro;
     }
 
     if (!navigator.onLine) {
-        window.dispatchEvent(
-            new CustomEvent(
-                "ekoo-escrita-pendente",
-                {
-                    detail: {
-                        descricao
-                    }
-                }
-            )
+        registrarPendencia(
+            descricao
         );
 
         promessa.catch(
@@ -30,16 +66,9 @@ export async function executarEscritaOffline(
                     erro
                 );
 
-                window.dispatchEvent(
-                    new CustomEvent(
-                        "ekoo-erro-sincronizacao",
-                        {
-                            detail: {
-                                descricao,
-                                erro
-                            }
-                        }
-                    )
+                registrarErro(
+                    descricao,
+                    erro
                 );
             }
         );
@@ -50,12 +79,30 @@ export async function executarEscritaOffline(
         };
     }
 
-    const resultado =
-        await promessa;
+    try {
+        const resultado =
+            await promessa;
 
-    return {
-        offline: false,
-        pendente: false,
-        resultado
-    };
+        return {
+            offline: false,
+            pendente: false,
+            resultado
+        };
+    } catch (erro) {
+        registrarErro(
+            descricao,
+            erro
+        );
+
+        throw erro;
+    }
+}
+
+
+export function obterQuantidadePendenteOffline() {
+    return Number(
+        localStorage.getItem(
+            CHAVE_PENDENTES
+        ) || 0
+    );
 }
