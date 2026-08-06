@@ -1,6 +1,10 @@
 import { db } from "./firebase-config.js";
 
 import {
+    executarEscritaOffline
+} from "./offline.js";
+
+import {
     collection,
     addDoc,
     getDocs,
@@ -15,9 +19,14 @@ const colecaoClientes =
     collection(db, "clientes");
 
 export async function cadastrarCliente(dados) {
-    return await addDoc(
-        colecaoClientes,
-        dados
+    return await executarEscritaOffline(
+        function () {
+            return addDoc(
+                colecaoClientes,
+                dados
+            );
+        },
+        "cadastro de cliente"
     );
 }
 
@@ -66,24 +75,34 @@ export async function atualizarCliente(
     clienteId,
     dados
 ) {
-    return await updateDoc(
-        doc(
-            db,
-            "clientes",
-            clienteId
-        ),
-        dados
+    return await executarEscritaOffline(
+        function () {
+            return updateDoc(
+                doc(
+                    db,
+                    "clientes",
+                    clienteId
+                ),
+                dados
+            );
+        },
+        "atualização de cliente"
     );
 }
 
 export async function excluirCliente(
     clienteId
 ) {
-    return await deleteDoc(
-        doc(
-            db,
-            "clientes",
-            clienteId
-        )
+    return await executarEscritaOffline(
+        function () {
+            return deleteDoc(
+                doc(
+                    db,
+                    "clientes",
+                    clienteId
+                )
+            );
+        },
+        "exclusão de cliente"
     );
 }

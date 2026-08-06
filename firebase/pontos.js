@@ -1,6 +1,10 @@
 import { db } from "./firebase-config.js";
 
 import {
+    executarEscritaOffline
+} from "./offline.js";
+
+import {
     collection,
     addDoc,
     getDocs,
@@ -19,9 +23,14 @@ const colecaoPontos =
 export async function cadastrarPonto(
     dadosPonto
 ) {
-    return await addDoc(
-        colecaoPontos,
-        dadosPonto
+    return await executarEscritaOffline(
+        function () {
+            return addDoc(
+                colecaoPontos,
+                dadosPonto
+            );
+        },
+        "cadastro de ponto"
     );
 }
 
@@ -85,13 +94,18 @@ export async function atualizarPonto(
     pontoId,
     dadosAtualizados
 ) {
-    return await updateDoc(
-        doc(
-            db,
-            "pontos",
-            pontoId
-        ),
-        dadosAtualizados
+    return await executarEscritaOffline(
+        function () {
+            return updateDoc(
+                doc(
+                    db,
+                    "pontos",
+                    pontoId
+                ),
+                dadosAtualizados
+            );
+        },
+        "atualização de ponto"
     );
 }
 
@@ -99,11 +113,16 @@ export async function atualizarPonto(
 export async function excluirPonto(
     pontoId
 ) {
-    return await deleteDoc(
-        doc(
-            db,
-            "pontos",
-            pontoId
-        )
+    return await executarEscritaOffline(
+        function () {
+            return deleteDoc(
+                doc(
+                    db,
+                    "pontos",
+                    pontoId
+                )
+            );
+        },
+        "exclusão de ponto"
     );
 }

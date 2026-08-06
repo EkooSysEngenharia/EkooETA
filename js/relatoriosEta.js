@@ -1478,54 +1478,39 @@ function classificarIndicador(
     }
 
     const numero =
-        Number(valor);
+        Number(
+            String(valor).replace(",", ".")
+        );
 
     if (Number.isNaN(numero)) {
         return "nao-analisado";
     }
 
-    /*
-     * Faixas visuais iniciais do sistema.
-     * Poderão ser configuradas por cliente
-     * em uma atualização futura.
-     */
-    if (parametro === "ph") {
-        if (
-            numero >= 6 &&
-            numero <= 9.5
-        ) {
-            return "ideal";
-        }
-
-        if (
-            numero >= 5.5 &&
-            numero <= 10
-        ) {
-            return "atencao";
-        }
-
-        return "correcao";
-    }
-
     if (parametro === "cloro") {
-        if (
-            numero >= 0.2 &&
-            numero <= 5
-        ) {
-            return "ideal";
+        if (numero < 3 || numero > 5) {
+            return "correcao";
         }
 
-        if (
-            numero >= 0.1 &&
-            numero <= 6
-        ) {
+        if (numero < 3.5 || numero > 4.5) {
             return "atencao";
         }
 
-        return "correcao";
+        return "ideal";
     }
 
-    return "ideal";
+    if (parametro === "ph") {
+        if (numero < 7 || numero > 7.4) {
+            return "correcao";
+        }
+
+        if (numero >= 7.15 && numero <= 7.25) {
+            return "ideal";
+        }
+
+        return "atencao";
+    }
+
+    return "nao-analisado";
 }
 
 

@@ -1,6 +1,10 @@
 import { db } from "./firebase-config.js";
 
 import {
+    executarEscritaOffline
+} from "./offline.js";
+
+import {
     collection,
     addDoc,
     getDocs,
@@ -20,9 +24,14 @@ const colecaoMedicoes =
 export async function cadastrarMedicao(
     dadosMedicao
 ) {
-    return await addDoc(
-        colecaoMedicoes,
-        dadosMedicao
+    return await executarEscritaOffline(
+        function () {
+            return addDoc(
+                colecaoMedicoes,
+                dadosMedicao
+            );
+        },
+        "cadastro de medição"
     );
 }
 
@@ -52,7 +61,12 @@ export async function cadastrarMedicoesEmLote(
         );
     });
 
-    await lote.commit();
+    return await executarEscritaOffline(
+        function () {
+            return lote.commit();
+        },
+        "lote de medições"
+    );
 }
 
 
@@ -194,13 +208,18 @@ export async function atualizarMedicao(
     medicaoId,
     dadosAtualizados
 ) {
-    return await updateDoc(
-        doc(
-            db,
-            "medicoes",
-            medicaoId
-        ),
-        dadosAtualizados
+    return await executarEscritaOffline(
+        function () {
+            return updateDoc(
+                doc(
+                    db,
+                    "medicoes",
+                    medicaoId
+                ),
+                dadosAtualizados
+            );
+        },
+        "atualização de medição"
     );
 }
 
@@ -208,11 +227,16 @@ export async function atualizarMedicao(
 export async function excluirMedicao(
     medicaoId
 ) {
-    return await deleteDoc(
-        doc(
-            db,
-            "medicoes",
-            medicaoId
-        )
+    return await executarEscritaOffline(
+        function () {
+            return deleteDoc(
+                doc(
+                    db,
+                    "medicoes",
+                    medicaoId
+                )
+            );
+        },
+        "exclusão de medição"
     );
 }

@@ -1,6 +1,10 @@
 import { db } from "./firebase-config.js";
 
 import {
+    executarEscritaOffline
+} from "./offline.js";
+
+import {
     collection,
     addDoc,
     getDocs,
@@ -17,9 +21,14 @@ const colecaoEtas =
 
 
 export async function cadastrarEta(dadosEta) {
-    return await addDoc(
-        colecaoEtas,
-        dadosEta
+    return await executarEscritaOffline(
+        function () {
+            return addDoc(
+                colecaoEtas,
+                dadosEta
+            );
+        },
+        "cadastro de ETA"
     );
 }
 
@@ -93,9 +102,14 @@ export async function atualizarEta(
             etaId
         );
 
-    return await updateDoc(
-        referencia,
-        dadosAtualizados
+    return await executarEscritaOffline(
+        function () {
+            return updateDoc(
+                referencia,
+                dadosAtualizados
+            );
+        },
+        "atualização de ETA"
     );
 }
 
@@ -108,7 +122,12 @@ export async function excluirEta(etaId) {
             etaId
         );
 
-    return await deleteDoc(
-        referencia
+    return await executarEscritaOffline(
+        function () {
+            return deleteDoc(
+                referencia
+            );
+        },
+        "exclusão de ETA"
     );
 }
