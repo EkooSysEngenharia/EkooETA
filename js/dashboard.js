@@ -472,3 +472,5 @@ botaoSair.addEventListener(
         }
     }
 );
+
+(function(){function i(){const a=document.getElementById("botao-menu-mobile"),f=document.getElementById("fechar-menu-mobile"),o=document.getElementById("overlay-menu-mobile"),m=document.querySelector("#menu-lateral-app,body>aside");if(!a||!f||!o||!m)return;const x=()=>document.body.classList.remove("menu-mobile-aberto");a.onclick=()=>document.body.classList.add("menu-mobile-aberto");f.onclick=x;o.onclick=x;m.querySelectorAll("a").forEach(e=>e.addEventListener("click",()=>{if(innerWidth<=768)x()}));}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i):i()})();
