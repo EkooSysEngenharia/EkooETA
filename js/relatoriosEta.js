@@ -1029,6 +1029,28 @@ function gerarRelatorioPdf() {
                     font-size: 10px;
                 }
 
+                .localizacao-relatorio a {
+                    color: #007238;
+                    font-weight: bold;
+                    text-decoration: none;
+                }
+
+                .foto-visita-relatorio {
+                    margin-top: 18px;
+                }
+
+                .foto-visita-relatorio img {
+                    display: block;
+
+                    width: 100%;
+                    max-height: 360px;
+
+                    object-fit: contain;
+
+                    border: 1px solid #d7dfda;
+                    border-radius: 6px;
+                }
+
                 @media print {
                     body {
                         background: #ffffff;
@@ -1143,6 +1165,25 @@ function criarPaginaRelatorio(
 ) {
     const primeira =
         medicoes[0] || {};
+
+    const medicaoComFoto =
+        medicoes.find(
+            function (medicao) {
+                return Boolean(
+                    medicao.fotoVisita
+                );
+            }
+        ) || {};
+
+    const medicaoComLocalizacao =
+        medicoes.find(
+            function (medicao) {
+                return (
+                    medicao.latitude &&
+                    medicao.longitude
+                );
+            }
+        ) || {};
 
     const observacoes =
         Array.from(
@@ -1328,6 +1369,44 @@ function criarPaginaRelatorio(
                         </td>
                     </tr>
 
+                    <tr>
+                        <th>Localização</th>
+
+                        <td class="localizacao-relatorio">
+                            ${
+                                medicaoComLocalizacao.latitude &&
+                                medicaoComLocalizacao.longitude
+                                    ? `
+                                        <a
+                                            href="https://www.google.com/maps?q=${encodeURIComponent(
+                                                medicaoComLocalizacao.latitude
+                                            )},${encodeURIComponent(
+                                                medicaoComLocalizacao.longitude
+                                            )}"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >
+                                            ${escaparHtml(
+                                                medicaoComLocalizacao.latitude
+                                            )},
+                                            ${escaparHtml(
+                                                medicaoComLocalizacao.longitude
+                                            )}
+                                        </a>
+
+                                        ${
+                                            medicaoComLocalizacao.precisaoGps
+                                                ? ` — precisão aproximada de ${escaparHtml(
+                                                    medicaoComLocalizacao.precisaoGps
+                                                )} m`
+                                                : ""
+                                        }
+                                    `
+                                    : "Não registrada"
+                            }
+                        </td>
+                    </tr>
+
                 </tbody>
 
             </table>
@@ -1401,6 +1480,25 @@ function criarPaginaRelatorio(
                 }
 
             </div>
+
+            ${
+                medicaoComFoto.fotoVisita
+                    ? `
+                        <h3 class="titulo-secao">
+                            Registro fotográfico
+                        </h3>
+
+                        <div class="foto-visita-relatorio">
+
+                            <img
+                                src="${medicaoComFoto.fotoVisita}"
+                                alt="Foto registrada durante a visita"
+                            >
+
+                        </div>
+                    `
+                    : ""
+            }
 
             <section class="legenda-relatorio">
 

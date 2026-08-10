@@ -1,0 +1,310 @@
+/* APP01 — experiência de aplicativo */
+
+:root {
+    --ekoo-safe-top:
+        env(safe-area-inset-top, 0px);
+
+    --ekoo-safe-right:
+        env(safe-area-inset-right, 0px);
+
+    --ekoo-safe-bottom:
+        env(safe-area-inset-bottom, 0px);
+
+    --ekoo-safe-left:
+        env(safe-area-inset-left, 0px);
+}
+
+html {
+    min-height: 100%;
+    background: #f4f7f5;
+}
+
+body {
+    min-height: 100%;
+    padding-top:
+        var(--ekoo-safe-top);
+
+    padding-right:
+        var(--ekoo-safe-right);
+
+    padding-bottom:
+        var(--ekoo-safe-bottom);
+
+    padding-left:
+        var(--ekoo-safe-left);
+}
+
+.ekoo-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        calc(24px + var(--ekoo-safe-top))
+        calc(24px + var(--ekoo-safe-right))
+        calc(24px + var(--ekoo-safe-bottom))
+        calc(24px + var(--ekoo-safe-left));
+
+    background:
+        linear-gradient(
+            155deg,
+            #f7faf8 0%,
+            #e9f7ef 100%
+        );
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.32s ease,
+        visibility 0.32s ease;
+}
+
+.ekoo-splash.oculto {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.ekoo-splash img {
+    width: min(230px, 64vw);
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.ekoo-splash h1 {
+    margin: 22px 0 5px;
+
+    color: #007238;
+    font-size: 28px;
+    text-align: center;
+}
+
+.ekoo-splash p {
+    margin: 0;
+
+    color: #59666d;
+    font-size: 14px;
+    text-align: center;
+}
+
+.ekoo-splash-carregando {
+    width: 44px;
+    height: 44px;
+
+    margin-top: 26px;
+
+    border: 4px solid
+        rgba(0, 152, 70, 0.16);
+
+    border-top-color: #009846;
+    border-radius: 50%;
+
+    animation:
+        ekoo-girar 0.8s linear infinite;
+}
+
+@keyframes ekoo-girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ekoo-banner-app {
+    position: fixed;
+    right:
+        calc(16px + var(--ekoo-safe-right));
+    bottom:
+        calc(16px + var(--ekoo-safe-bottom));
+    left:
+        calc(16px + var(--ekoo-safe-left));
+    z-index: 15000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    max-width: 640px;
+    margin-left: auto;
+
+    padding: 14px 16px;
+
+    border: 1px solid #cfe0d7;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 12px 34px
+        rgba(28, 52, 40, 0.18);
+}
+
+.ekoo-banner-app.oculto {
+    display: none;
+}
+
+.ekoo-banner-app-conteudo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ekoo-banner-app-icone {
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+
+    border-radius: 12px;
+
+    background: #e8f7ef;
+    color: #007238;
+
+    font-size: 20px;
+}
+
+.ekoo-banner-app strong {
+    display: block;
+
+    color: #263238;
+    font-size: 14px;
+}
+
+.ekoo-banner-app p {
+    margin: 3px 0 0;
+
+    color: #6f7c82;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.ekoo-banner-app-acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ekoo-banner-app button {
+    min-height: 38px;
+    padding: 0 13px;
+
+    border-radius: 9px;
+
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.ekoo-banner-app .primario {
+    border: none;
+
+    background: #009846;
+    color: #ffffff;
+}
+
+.ekoo-banner-app .secundario {
+    border: 1px solid #d7e2dd;
+
+    background: #ffffff;
+    color: #56636a;
+}
+
+.ekoo-modal-app-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 18000;
+
+    display: grid;
+    place-items: center;
+
+    padding:
+        calc(20px + var(--ekoo-safe-top))
+        calc(20px + var(--ekoo-safe-right))
+        calc(20px + var(--ekoo-safe-bottom))
+        calc(20px + var(--ekoo-safe-left));
+
+    background:
+        rgba(24, 38, 31, 0.58);
+
+    backdrop-filter:
+        blur(3px);
+}
+
+.ekoo-modal-app {
+    width: min(450px, 100%);
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 20px 54px
+        rgba(0, 0, 0, 0.22);
+}
+
+.ekoo-modal-app h2 {
+    margin: 0;
+
+    color: #007238;
+    font-size: 21px;
+}
+
+.ekoo-modal-app p,
+.ekoo-modal-app li {
+    color: #56636a;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.ekoo-modal-app ol {
+    padding-left: 22px;
+}
+
+.ekoo-modal-app button {
+    width: 100%;
+    min-height: 44px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: #009846;
+    color: #ffffff;
+
+    font: inherit;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+@media (max-width: 620px) {
+    .ekoo-banner-app {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ekoo-banner-app-acoes {
+        width: 100%;
+    }
+
+    .ekoo-banner-app-acoes button {
+        flex: 1;
+    }
+}
+
+@media (display-mode: standalone) {
+    .ekoo-banner-instalar {
+        display: none !important;
+    }
+}

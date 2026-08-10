@@ -1,5 +1,8 @@
-const CACHE_NAME =
-    "ekoo-manager-v1";
+const VERSAO_APP =
+    "app04-v1";
+
+const CACHE_APP =
+    `ekoo-manager-${VERSAO_APP}`;
 
 const BASE =
     self.location.pathname.replace(
@@ -7,15 +10,18 @@ const BASE =
         ""
     );
 
-const ARQUIVOS = [
+const ARQUIVOS_APP = [
     "",
     "index.html",
+    "manifest.json",
 
     "pages/login.html",
     "pages/dashboard.html",
     "pages/cadastro.html",
     "pages/eta/lista.html",
 
+    "css/style.css",
+    "css/app.css",
     "css/login.css",
     "css/dashboard.css",
     "css/clientes.css",
@@ -26,6 +32,7 @@ const ARQUIVOS = [
     "css/historicoMedicoes.css",
     "css/relatoriosEta.css",
 
+    "js/pwa.js",
     "js/login.js",
     "js/dashboard.js",
     "js/clientes.js",
@@ -37,6 +44,7 @@ const ARQUIVOS = [
     "js/relatoriosEta.js",
 
     "firebase/firebase-config.js",
+    "firebase/offline.js",
     "firebase/auth.js",
     "firebase/clientes.js",
     "firebase/etas.js",
@@ -45,10 +53,15 @@ const ARQUIVOS = [
     "firebase/usuarios.js",
 
     "assets/logo.png",
-    "manifest.json"
-].map(function (caminho) {
-    return BASE + caminho;
-});
+    "assets/icons/apple-touch-icon.png",
+    "assets/icons/icon-192.png",
+    "assets/icons/icon-512.png",
+    "assets/icons/icon-maskable-512.png"
+].map(
+    function (caminho) {
+        return BASE + caminho;
+    }
+);
 
 
 self.addEventListener(
@@ -56,15 +69,19 @@ self.addEventListener(
     function (evento) {
         evento.waitUntil(
             caches
-                .open(CACHE_NAME)
-                .then(function (cache) {
-                    return cache.addAll(
-                        ARQUIVOS
-                    );
-                })
-                .then(function () {
-                    return self.skipWaiting();
-                })
+                .open(CACHE_APP)
+                .then(
+                    function (cache) {
+                        return cache.addAll(
+                            ARQUIVOS_APP
+                        );
+                    }
+                )
+                .then(
+                    function () {
+                        return self.skipWaiting();
+                    }
+                )
         );
     }
 );
@@ -76,28 +93,139 @@ self.addEventListener(
         evento.waitUntil(
             caches
                 .keys()
-                .then(function (nomes) {
-                    return Promise.all(
-                        nomes.map(
-                            function (nome) {
-                                if (
-                                    nome !==
-                                    CACHE_NAME
-                                ) {
-                                    return caches.delete(
-                                        nome
-                                    );
+                .then(
+                    function (nomes) {
+                        return Promise.all(
+                            nomes.map(
+                                function (nome) {
+                                    if (
+                                        nome.startsWith(
+                                            "ekoo-manager-"
+                                        ) &&
+                                        nome !== CACHE_APP
+                                    ) {
+                                        return caches.delete(
+                                            nome
+                                        );
+                                    }
                                 }
+                            )
+                        );
+                    }
+                )
+                .then(
+                    function () {
+                        return self.clients.claim();
+                    }
+                )
+                .then(
+                    async function () {
+                        const clientes =
+                            await self.clients.matchAll({
+                                type: "window",
+                                includeUncontrolled: true
+                            });
+
+                        clientes.forEach(
+                            function (cliente) {
+                                cliente.postMessage({
+                                    tipo:
+                                        "APP_ATUALIZADO",
+
+                                    versao:
+                                        VERSAO_APP
+                                });
                             }
-                        )
-                    );
-                })
-                .then(function () {
-                    return self.clients.claim();
-                })
+                        );
+                    }
+                )
         );
     }
 );
+
+
+self.addEventListener(
+    "message",
+    function (evento) {
+        if (
+            evento.data &&
+            evento.data.tipo ===
+                "ATIVAR_ATUALIZACAO"
+        ) {
+            self.skipWaiting();
+        }
+    }
+);
+
+
+async function responderNavegacao(
+    requisicao
+) {
+    try {
+        const resposta =
+            await fetch(requisicao);
+
+        const cache =
+            await caches.open(
+                CACHE_APP
+            );
+
+        cache.put(
+            requisicao,
+            resposta.clone()
+        );
+
+        return resposta;
+    } catch (erro) {
+        const armazenada =
+            await caches.match(
+                requisicao
+            );
+
+        if (armazenada) {
+            return armazenada;
+        }
+
+        return caches.match(
+            BASE + "pages/login.html"
+        );
+    }
+}
+
+
+async function responderRecurso(
+    requisicao
+) {
+    const armazenada =
+        await caches.match(
+            requisicao
+        );
+
+    const atualizacao =
+        fetch(requisicao)
+            .then(
+                async function (resposta) {
+                    const cache =
+                        await caches.open(
+                            CACHE_APP
+                        );
+
+                    cache.put(
+                        requisicao,
+                        resposta.clone()
+                    );
+
+                    return resposta;
+                }
+            )
+            .catch(
+                function () {
+                    return armazenada;
+                }
+            );
+
+    return armazenada || atualizacao;
+}
 
 
 self.addEventListener(
@@ -110,30 +238,23 @@ self.addEventListener(
             return;
         }
 
+        if (
+            evento.request.mode ===
+            "navigate"
+        ) {
+            evento.respondWith(
+                responderNavegacao(
+                    evento.request
+                )
+            );
+
+            return;
+        }
+
         evento.respondWith(
-            fetch(evento.request)
-                .then(function (resposta) {
-                    const copia =
-                        resposta.clone();
-
-                    caches
-                        .open(CACHE_NAME)
-                        .then(
-                            function (cache) {
-                                cache.put(
-                                    evento.request,
-                                    copia
-                                );
-                            }
-                        );
-
-                    return resposta;
-                })
-                .catch(function () {
-                    return caches.match(
-                        evento.request
-                    );
-                })
+            responderRecurso(
+                evento.request
+            )
         );
     }
 );

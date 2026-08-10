@@ -489,3 +489,373 @@
         width: 100%;
     }
 }
+
+
+/* APP02 — câmera e GPS */
+
+.acoes-recurso-campo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.botao-recurso-campo,
+.botao-remover-recurso {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 0 14px;
+
+    border-radius: 10px;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.botao-recurso-campo {
+    border: none;
+
+    background: #009846;
+    color: #ffffff;
+}
+
+.botao-recurso-campo:hover {
+    background: #007238;
+}
+
+.botao-recurso-campo:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.botao-remover-recurso {
+    border: 1px solid #efc5c5;
+
+    background: #ffffff;
+    color: #c62828;
+}
+
+.status-recurso-campo {
+    color: #748188;
+    font-size: 12px;
+}
+
+.status-recurso-campo.sucesso {
+    color: #007238;
+    font-weight: bold;
+}
+
+.status-recurso-campo.erro {
+    color: #c62828;
+    font-weight: bold;
+}
+
+.entrada-foto-visita {
+    position: absolute;
+
+    width: 1px !important;
+    height: 1px !important;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+}
+
+.preview-foto-visita {
+    width: 100%;
+    max-width: 520px;
+    margin-top: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid #d7e2dd;
+    border-radius: 14px;
+
+    background: #f4f7f5;
+}
+
+.preview-foto-visita img {
+    display: block;
+
+    width: 100%;
+    max-height: 360px;
+
+    object-fit: contain;
+}
+
+.ajuda-recurso-campo {
+    color: #7b898f;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+@media (max-width: 520px) {
+    .acoes-recurso-campo {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .botao-recurso-campo,
+    .botao-remover-recurso {
+        width: 100%;
+    }
+}
+
+
+/* APP03 — avaliação técnica automática */
+
+.avaliacao-tecnica-ponto {
+    margin-top: 16px;
+    padding: 14px 16px;
+
+    border: 1px solid #d7e2dd;
+    border-left-width: 5px;
+    border-radius: 12px;
+
+    background: #f7f9f8;
+
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+}
+
+.avaliacao-tecnica-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    margin-bottom: 9px;
+}
+
+.avaliacao-tecnica-cabecalho strong {
+    color: #344149;
+    font-size: 14px;
+}
+
+.avaliacao-tecnica-status {
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    background: #eef2f0;
+    color: #59666d;
+
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.avaliacao-tecnica-itens {
+    display: grid;
+    gap: 7px;
+}
+
+.avaliacao-parametro {
+    margin: 0;
+
+    color: #68767d;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.avaliacao-tecnica-ponto.neutro {
+    border-left-color: #9aa6aa;
+    background: #f7f9f8;
+}
+
+.avaliacao-tecnica-ponto.ideal {
+    border-left-color: #009846;
+    background: #effaf4;
+}
+
+.avaliacao-tecnica-ponto.atencao {
+    border-left-color: #f6a623;
+    background: #fff8ea;
+}
+
+.avaliacao-tecnica-ponto.correcao {
+    border-left-color: #d92929;
+    background: #fff0f0;
+}
+
+.avaliacao-tecnica-ponto.ideal
+.avaliacao-tecnica-status {
+    background: #daf4e5;
+    color: #007238;
+}
+
+.avaliacao-tecnica-ponto.atencao
+.avaliacao-tecnica-status {
+    background: #ffedc7;
+    color: #9a5a00;
+}
+
+.avaliacao-tecnica-ponto.correcao
+.avaliacao-tecnica-status {
+    background: #ffdcdc;
+    color: #b42318;
+}
+
+.avaliacao-parametro.ideal {
+    color: #007238;
+}
+
+.avaliacao-parametro.atencao {
+    color: #9a5a00;
+}
+
+.avaliacao-parametro.correcao {
+    color: #b42318;
+}
+
+@media (max-width: 620px) {
+    .avaliacao-tecnica-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .avaliacao-tecnica-status {
+        white-space: normal;
+    }
+}
+
+
+/* APP04 — inteligência histórica e tendências */
+
+.inteligencia-historica-ponto {
+    margin-top: 14px;
+    padding: 14px 16px;
+
+    border: 1px solid #d7e2dd;
+    border-left-width: 5px;
+    border-radius: 12px;
+
+    background: #f7f9f8;
+}
+
+.inteligencia-historica-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    margin-bottom: 9px;
+}
+
+.inteligencia-historica-cabecalho strong {
+    color: #344149;
+    font-size: 14px;
+}
+
+.inteligencia-historica-status {
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    background: #eef2f0;
+    color: #59666d;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.inteligencia-historica-conteudo > p {
+    margin: 0;
+
+    color: #65737a;
+    font-size: 13px;
+    line-height: 1.48;
+}
+
+.historico-valores-mini {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    margin-top: 11px;
+}
+
+.valor-mini-historico {
+    display: grid;
+    gap: 3px;
+
+    min-width: 112px;
+    padding: 8px 10px;
+
+    border: 1px solid #dfe7e3;
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+.valor-mini-historico small {
+    color: #7a878d;
+    font-size: 10px;
+}
+
+.valor-mini-historico strong {
+    color: #45535a;
+    font-size: 11px;
+}
+
+.inteligencia-historica-ponto.neutro {
+    border-left-color: #9aa6aa;
+}
+
+.inteligencia-historica-ponto.ideal {
+    border-left-color: #009846;
+    background: #effaf4;
+}
+
+.inteligencia-historica-ponto.atencao {
+    border-left-color: #f6a623;
+    background: #fff8ea;
+}
+
+.inteligencia-historica-ponto.correcao {
+    border-left-color: #d92929;
+    background: #fff0f0;
+}
+
+.inteligencia-historica-ponto.ideal
+.inteligencia-historica-status {
+    background: #daf4e5;
+    color: #007238;
+}
+
+.inteligencia-historica-ponto.atencao
+.inteligencia-historica-status {
+    background: #ffedc7;
+    color: #9a5a00;
+}
+
+.inteligencia-historica-ponto.correcao
+.inteligencia-historica-status {
+    background: #ffdcdc;
+    color: #b42318;
+}
+
+@media (max-width: 620px) {
+    .inteligencia-historica-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .inteligencia-historica-status {
+        white-space: normal;
+    }
+
+    .valor-mini-historico {
+        flex: 1 1 112px;
+    }
+}
