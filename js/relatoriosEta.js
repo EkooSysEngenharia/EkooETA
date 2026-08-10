@@ -1585,11 +1585,11 @@ function classificarIndicador(
     }
 
     if (parametro === "cloro") {
-        if (numero < 3 || numero > 5) {
+        if (numero < 2.5 || numero > 5.5) {
             return "correcao";
         }
 
-        if (numero < 3.5 || numero > 4.5) {
+        if (numero < 3 || numero > 5) {
             return "atencao";
         }
 
@@ -1597,15 +1597,15 @@ function classificarIndicador(
     }
 
     if (parametro === "ph") {
-        if (numero < 7 || numero > 7.4) {
+        if (numero < 6.8 || numero > 7.6) {
             return "correcao";
         }
 
-        if (numero >= 7.15 && numero <= 7.25) {
-            return "ideal";
+        if (numero < 7 || numero > 7.4) {
+            return "atencao";
         }
 
-        return "atencao";
+        return "ideal";
     }
 
     return "nao-analisado";

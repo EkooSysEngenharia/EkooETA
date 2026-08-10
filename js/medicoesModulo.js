@@ -1831,50 +1831,32 @@ function avaliarCloro(valor) {
     }
 
     if (
-        valor < 3
+        valor < 2.5 ||
+        valor > 5.5
     ) {
         return {
             nivel:
                 "correcao",
 
             texto:
-                `🔴 Cloro ${formatarNumeroTecnico(valor)} mg/L: abaixo de 3,0 mg/L. Verifique a dosagem de cloro e repita a análise após a correção.`
+                valor < 2.5
+                    ? `🔴 Cloro ${formatarNumeroTecnico(valor)} mg/L: abaixo da faixa de atenção. Verifique a dosagem e repita a análise.`
+                    : `🔴 Cloro ${formatarNumeroTecnico(valor)} mg/L: acima da faixa de atenção. Verifique possível excesso de dosagem e repita a análise.`
         };
     }
 
     if (
+        valor < 3 ||
         valor > 5
     ) {
         return {
             nivel:
-                "correcao",
-
-            texto:
-                `🔴 Cloro ${formatarNumeroTecnico(valor)} mg/L: acima de 5,0 mg/L. Verifique excesso de dosagem e repita a análise.`
-        };
-    }
-
-    if (
-        valor < 3.5
-    ) {
-        return {
-            nivel:
                 "atencao",
 
             texto:
-                `🟡 Cloro ${formatarNumeroTecnico(valor)} mg/L: próximo do limite inferior. Acompanhe a dosagem.`
-        };
-    }
-
-    if (
-        valor > 4.5
-    ) {
-        return {
-            nivel:
-                "atencao",
-
-            texto:
-                `🟡 Cloro ${formatarNumeroTecnico(valor)} mg/L: próximo do limite superior. Acompanhe a dosagem.`
+                valor < 3
+                    ? `🟡 Cloro ${formatarNumeroTecnico(valor)} mg/L: um pouco abaixo da faixa operacional de 3,0 a 5,0 mg/L.`
+                    : `🟡 Cloro ${formatarNumeroTecnico(valor)} mg/L: um pouco acima da faixa operacional de 3,0 a 5,0 mg/L.`
         };
     }
 
@@ -1883,10 +1865,9 @@ function avaliarCloro(valor) {
             "ideal",
 
         texto:
-            `🟢 Cloro ${formatarNumeroTecnico(valor)} mg/L: dentro da faixa operacional definida.`
+            `🟢 Cloro ${formatarNumeroTecnico(valor)} mg/L: dentro da faixa operacional de 3,0 a 5,0 mg/L.`
     };
 }
-
 
 function avaliarPh(valor) {
     if (
@@ -1903,51 +1884,43 @@ function avaliarPh(valor) {
     }
 
     if (
-        valor < 7
+        valor < 6.8 ||
+        valor > 7.6
     ) {
         return {
             nivel:
                 "correcao",
 
             texto:
-                `🔴 pH ${formatarNumeroTecnico(valor)}: abaixo de 7,0. Verifique a condição da água e repita a análise.`
+                valor < 6.8
+                    ? `🔴 pH ${formatarNumeroTecnico(valor)}: abaixo da faixa de atenção. Verifique a condição da água e repita a análise.`
+                    : `🔴 pH ${formatarNumeroTecnico(valor)}: acima da faixa de atenção. Verifique a condição da água e repita a análise.`
         };
     }
 
     if (
+        valor < 7 ||
         valor > 7.4
     ) {
         return {
             nivel:
-                "correcao",
+                "atencao",
 
             texto:
-                `🔴 pH ${formatarNumeroTecnico(valor)}: acima de 7,4. Verifique a condição da água e repita a análise.`
-        };
-    }
-
-    if (
-        valor >= 7.15 &&
-        valor <= 7.25
-    ) {
-        return {
-            nivel:
-                "ideal",
-
-            texto:
-                `🟢 pH ${formatarNumeroTecnico(valor)}: dentro da faixa ideal.`
+                valor < 7
+                    ? `🟡 pH ${formatarNumeroTecnico(valor)}: um pouco abaixo da faixa operacional de 7,0 a 7,4.`
+                    : `🟡 pH ${formatarNumeroTecnico(valor)}: um pouco acima da faixa operacional de 7,0 a 7,4.`
         };
     }
 
     return {
         nivel:
-            "atencao",
+            "ideal",
 
         texto:
-            `🟡 pH ${formatarNumeroTecnico(valor)}: dentro da faixa de acompanhamento, mas próximo de um dos limites.`
+            `🟢 pH ${formatarNumeroTecnico(valor)}: dentro da faixa operacional de 7,0 a 7,4.`
     };
 }
-
 
 function obterNivelMaisCritico(
     niveis
@@ -2289,8 +2262,8 @@ function analisarSerieCloro(
         ultimosTres.every(
             function (valor) {
                 return (
-                    valor < 3 ||
-                    valor > 5
+                    valor < 2.5 ||
+                    valor > 5.5
                 );
             }
         );
@@ -2318,7 +2291,7 @@ function analisarSerieCloro(
         const ultimo =
             valoresMaisRecentes[0];
 
-        if (ultimo < 3.5) {
+        if (ultimo < 3) {
             criticas.push(
                 "O cloro apresenta queda contínua e já está próximo ou abaixo do limite inferior. Inspecione a dosagem."
             );
@@ -2341,7 +2314,7 @@ function analisarSerieCloro(
         const ultimo =
             valoresMaisRecentes[0];
 
-        if (ultimo > 4.5) {
+        if (ultimo > 5) {
             criticas.push(
                 "O cloro apresenta elevação contínua e já está próximo ou acima do limite superior. Verifique possível excesso de dosagem."
             );
@@ -2358,8 +2331,8 @@ function analisarSerieCloro(
         ultimosTres.every(
             function (valor) {
                 return (
-                    valor < 3.5 ||
-                    valor > 4.5
+                    valor < 3 ||
+                    valor > 5
                 );
             }
         );
@@ -2400,8 +2373,8 @@ function analisarSeriePh(
         ultimosTres.every(
             function (valor) {
                 return (
-                    valor < 7 ||
-                    valor > 7.4
+                    valor < 6.8 ||
+                    valor > 7.6
                 );
             }
         );
@@ -2418,8 +2391,8 @@ function analisarSeriePh(
         ultimosTres.every(
             function (valor) {
                 return (
-                    valor < 7.15 ||
-                    valor > 7.25
+                    valor < 7 ||
+                    valor > 7.4
                 );
             }
         );
