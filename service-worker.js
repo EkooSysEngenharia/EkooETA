@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app07-v1";
+    "app08-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
@@ -35,6 +35,7 @@ const ARQUIVOS_APP = [
     "js/pwa.js",
     "js/login.js",
     "js/dashboard.js",
+    "js/agenda.js",
     "js/clientes.js",
     "js/cadastro.js",
     "js/eta.js",
@@ -48,6 +49,7 @@ const ARQUIVOS_APP = [
     "firebase/auth.js",
     "firebase/clientes.js",
     "firebase/etas.js",
+    "firebase/agenda.js",
     "firebase/medicoes.js",
     "firebase/pontos.js",
     "firebase/usuarios.js",
