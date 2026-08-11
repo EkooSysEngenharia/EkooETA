@@ -33,6 +33,12 @@
       "purpose": "any"
     },
     {
+      "src": "./assets/icons/icon-mac-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "./assets/icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",

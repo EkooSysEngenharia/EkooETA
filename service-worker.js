@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app06-v1";
+    "app07-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
@@ -56,6 +56,7 @@ const ARQUIVOS_APP = [
     "assets/icons/apple-touch-icon.png",
     "assets/icons/icon-192.png",
     "assets/icons/icon-512.png",
+    "assets/icons/icon-mac-512.png",
     "assets/icons/icon-maskable-512.png"
 ].map(
     function (caminho) {
