@@ -5,7 +5,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
-    sair
+    sair,
+    sessaoDentroDoPrazo
 } from "../firebase/auth.js";
 
 import {
@@ -36,10 +37,6 @@ import {
     montarModuloRelatorios
 } from "./relatoriosEta.js";
 
-import {
-    montarModuloAgenda
-} from "./agenda.js";
-
 
 const nomeUsuario =
     document.getElementById("nomeUsuario");
@@ -58,9 +55,6 @@ const botaoClientes =
 
 const botaoRelatorios =
     document.getElementById("botaoRelatorios");
-
-const botaoAgenda =
-    document.getElementById("botaoAgenda");
 
 const botaoConfiguracoes =
     document.getElementById("botaoConfiguracoes");
@@ -373,6 +367,16 @@ onAuthStateChanged(
             return;
         }
 
+        if (!sessaoDentroDoPrazo()) {
+            await sair();
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+        }
+
         usuarioAtualId =
             usuario.uid;
 
@@ -416,14 +420,6 @@ botaoModuloEta.addEventListener(
 botaoClientes.addEventListener(
     "click",
     abrirModuloClientes
-);
-
-botaoAgenda.addEventListener(
-    "click",
-    function () {
-        prepararAreaModulo(botaoAgenda);
-        montarModuloAgenda(conteudoModulo);
-    }
 );
 
 botaoRelatorios.addEventListener(

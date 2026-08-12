@@ -1,7 +1,17 @@
 import {
     entrar,
-    recuperarSenha
+    recuperarSenha,
+    sair,
+    sessaoDentroDoPrazo
 } from "../firebase/auth.js";
+
+import {
+    auth
+} from "../firebase/firebase-config.js";
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 const formulario =
     document.getElementById("formLogin");
@@ -59,6 +69,35 @@ function traduzirErroLogin(codigo) {
         "Não foi possível entrar. Confira os dados."
     );
 }
+
+let verificandoSessao =
+    true;
+
+onAuthStateChanged(
+    auth,
+    async function (usuario) {
+        if (!verificandoSessao) {
+            return;
+        }
+
+        verificandoSessao = false;
+
+        if (!usuario) {
+            return;
+        }
+
+        if (sessaoDentroDoPrazo()) {
+            window.location.replace(
+                "dashboard.html"
+            );
+
+            return;
+        }
+
+        await sair();
+    }
+);
+
 
 formulario.addEventListener(
     "submit",
