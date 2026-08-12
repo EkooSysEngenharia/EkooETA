@@ -2,6 +2,7 @@ import { auth } from "../firebase/firebase-config.js";
 import { listarClientes } from "../firebase/clientes.js";
 import { listarEtas } from "../firebase/etas.js";
 import { cadastrarVisita, listarVisitas, atualizarVisita, excluirVisita } from "../firebase/agenda.js";
+import { montarModuloMedicoes } from "./medicoesModulo.js";
 
 function nomeCliente(c){ return c.nomeFantasia || c.razaoSocial || c.nome || "Cliente"; }
 function esc(v=""){ return String(v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
@@ -55,9 +56,27 @@ export async function montarModuloAgenda(container){
       listaEl.innerHTML=itens.map(v=>{const s=statusVisita(v);return `<article class="agenda-card status-${s}">
         <div class="agenda-data"><strong>${esc(formatarData(v.dataHora))}</strong><span class="agenda-status">${s==="agendada"?"🟢 Agendada":s==="atrasada"?"🔴 Atrasada":"✓ Realizada"}</span></div>
         <div class="agenda-info"><h3>${esc(v.clienteNome||"Cliente")}</h3><p>💧 ${esc(v.etaNome||"ETA")}</p>${v.responsavel?`<p>👤 ${esc(v.responsavel)}</p>`:""}${v.observacao?`<p class="agenda-obs">${esc(v.observacao)}</p>`:""}</div>
-        <div class="agenda-card-acoes">${s!=="realizada"?`<button data-realizar="${v.id}">✓ Realizada</button>`:""}<button data-editar="${v.id}">Editar</button><button class="perigo" data-excluir="${v.id}">Excluir</button></div>
+        <div class="agenda-card-acoes">${s!=="realizada"?`<button class="agenda-iniciar-medicao" data-medir="${v.id}">💧 Iniciar medição</button><button data-realizar="${v.id}">✓ Realizada</button>`:""}<button data-editar="${v.id}">Editar</button><button class="perigo" data-excluir="${v.id}">Excluir</button></div>
       </article>`}).join("");
-      listaEl.querySelectorAll("[data-realizar]").forEach(b=>b.onclick=async()=>{await atualizarVisita(b.dataset.realizar,{status:"realizada"});await recarregar();});
+      listaEl.querySelectorAll("[data-medir]").forEach(b=>b.onclick=()=>{
+        const v=visitas.find(x=>x.id===b.dataset.medir);
+        if(!v)return;
+        montarModuloMedicoes(container,{
+          clienteId:v.clienteId,
+          clienteNome:v.clienteNome||"Cliente",
+          etaId:v.etaId,
+          etaNome:v.etaNome||"ETA",
+          aoVoltar:()=>montarModuloAgenda(container),
+          aoSalvar:async()=>{
+            await atualizarVisita(v.id,{
+              status:"realizada",
+              realizadaEm:new Date().toISOString(),
+              atualizadoEm:new Date().toISOString()
+            });
+          }
+        });
+      });
+      listaEl.querySelectorAll("[data-realizar]").forEach(b=>b.onclick=async()=>{await atualizarVisita(b.dataset.realizar,{status:"realizada",realizadaEm:new Date().toISOString(),atualizadoEm:new Date().toISOString()});await recarregar();});
       listaEl.querySelectorAll("[data-excluir]").forEach(b=>b.onclick=async()=>{if(confirm("Excluir esta visita da agenda?")){await excluirVisita(b.dataset.excluir);await recarregar();}});
       listaEl.querySelectorAll("[data-editar]").forEach(b=>b.onclick=()=>abrirEdicao(b.dataset.editar));
     }

@@ -16,6 +16,7 @@ let clienteAtualNome = "";
 let etaAtualId = null;
 let etaAtualNome = "";
 let funcaoVoltar = null;
+let funcaoAposSalvar = null;
 let fotoVisitaAtual = "";
 let historicoMedicoesAtual = [];
 
@@ -46,6 +47,11 @@ export function montarModuloMedicoes(
     funcaoVoltar =
         typeof opcoes.aoVoltar === "function"
             ? opcoes.aoVoltar
+            : null;
+
+    funcaoAposSalvar =
+        typeof opcoes.aoSalvar === "function"
+            ? opcoes.aoSalvar
             : null;
 
     fotoVisitaAtual = "";
@@ -1048,6 +1054,10 @@ async function salvarMedicoes(evento) {
         configurarDataHoraAtual();
 
         await carregarHistorico();
+
+        if (funcaoAposSalvar) {
+            await funcaoAposSalvar();
+        }
     } catch (erro) {
         console.error(
             "Erro ao salvar medições:",

@@ -37,6 +37,10 @@ import {
     montarModuloRelatorios
 } from "./relatoriosEta.js";
 
+import {
+    montarModuloAgenda
+} from "./agenda.js";
+
 
 const nomeUsuario =
     document.getElementById("nomeUsuario");
@@ -55,6 +59,9 @@ const botaoClientes =
 
 const botaoRelatorios =
     document.getElementById("botaoRelatorios");
+
+const botaoAgenda =
+    document.getElementById("botaoAgenda");
 
 const botaoConfiguracoes =
     document.getElementById("botaoConfiguracoes");
@@ -420,6 +427,14 @@ botaoModuloEta.addEventListener(
 botaoClientes.addEventListener(
     "click",
     abrirModuloClientes
+);
+
+botaoAgenda.addEventListener(
+    "click",
+    function () {
+        prepararAreaModulo(botaoAgenda);
+        montarModuloAgenda(conteudoModulo);
+    }
 );
 
 botaoRelatorios.addEventListener(
