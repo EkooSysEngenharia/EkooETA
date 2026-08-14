@@ -60,6 +60,9 @@ const botaoClientes =
 const botaoRelatorios =
     document.getElementById("botaoRelatorios");
 
+const botaoVisitaTecnica =
+    document.getElementById("botaoVisitaTecnica");
+
 const botaoAgenda =
     document.getElementById("botaoAgenda");
 
@@ -434,6 +437,17 @@ botaoAgenda.addEventListener(
     function () {
         prepararAreaModulo(botaoAgenda);
         montarModuloAgenda(conteudoModulo);
+    }
+);
+
+botaoVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        mostrarPreparacao(
+            "Visita Técnica",
+            "Módulo em preparação.",
+            botaoVisitaTecnica
+        );
     }
 );
 
