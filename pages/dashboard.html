@@ -99,21 +99,24 @@
                     🏠 Dashboard
                 </button>
 
-                <button
-                    id="botaoModuloEta"
-                    class="item-menu"
-                    type="button"
-                >
-                    💧 ETA
-                </button>
+                <div class="grupo-menu">
+                    <button
+                        id="botaoModuloEta"
+                        class="item-menu item-menu-pai"
+                        type="button"
+                        aria-expanded="false"
+                    >
+                        <span>💧 ETA</span>
+                        <span id="setaMenuEta" class="seta-submenu">⌄</span>
+                    </button>
 
-                <button
-                    id="botaoClientes"
-                    class="item-menu"
-                    type="button"
-                >
-                    👥 Clientes
-                </button>
+                    <div id="submenuEta" class="submenu-eta fechado">
+                        <button id="botaoClientes" class="item-menu item-submenu" type="button">👥 Clientes</button>
+                        <button id="botaoMedicoesEta" class="item-menu item-submenu" type="button">🧪 Medições</button>
+                        <button id="botaoRelatorios" class="item-menu item-submenu" type="button">📄 Relatórios</button>
+                        <button id="botaoAgenda" class="item-menu item-submenu" type="button">📅 Agenda</button>
+                    </div>
+                </div>
 
                 <button
                     id="botaoVisitaTecnica"
@@ -121,22 +124,6 @@
                     type="button"
                 >
                     🧾 Visita Técnica
-                </button>
-
-                <button
-                    id="botaoAgenda"
-                    class="item-menu"
-                    type="button"
-                >
-                    📅 Agenda
-                </button>
-
-                <button
-                    id="botaoRelatorios"
-                    class="item-menu"
-                    type="button"
-                >
-                    📄 Relatórios
                 </button>
 
                 <button

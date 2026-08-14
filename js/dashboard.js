@@ -54,6 +54,12 @@ const botaoDashboard =
 const botaoModuloEta =
     document.getElementById("botaoModuloEta");
 
+const submenuEta =
+    document.getElementById("submenuEta");
+
+const botaoMedicoesEta =
+    document.getElementById("botaoMedicoesEta");
+
 const botaoClientes =
     document.getElementById("botaoClientes");
 
@@ -423,6 +429,19 @@ botaoDashboard.addEventListener(
 );
 
 botaoModuloEta.addEventListener(
+    "click",
+    function () {
+        const fechado =
+            submenuEta.classList.toggle("fechado");
+
+        botaoModuloEta.setAttribute(
+            "aria-expanded",
+            String(!fechado)
+        );
+    }
+);
+
+botaoMedicoesEta.addEventListener(
     "click",
     abrirModuloEta
 );

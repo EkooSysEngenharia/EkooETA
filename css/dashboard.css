@@ -420,3 +420,12 @@ button {
     color:#fff;
     font-weight:700;
 }
+
+/* APP12 - organização do menu ETA */
+.grupo-menu{width:100%}
+.item-menu-pai{display:flex!important;align-items:center;justify-content:space-between;width:100%}
+.seta-submenu{font-size:20px;transition:transform .22s ease;line-height:1}
+.item-menu-pai[aria-expanded="true"] .seta-submenu{transform:rotate(180deg)}
+.submenu-eta{display:grid;gap:4px;max-height:240px;opacity:1;overflow:hidden;transition:max-height .25s ease,opacity .2s ease;margin-top:4px}
+.submenu-eta.fechado{max-height:0;opacity:0;margin-top:0}
+.item-submenu{padding-left:34px!important;font-size:.94em!important}
