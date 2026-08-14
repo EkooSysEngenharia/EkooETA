@@ -429,3 +429,13 @@ button {
 .submenu-eta{display:grid;gap:4px;max-height:240px;opacity:1;overflow:hidden;transition:max-height .25s ease,opacity .2s ease;margin-top:4px}
 .submenu-eta.fechado{max-height:0;opacity:0;margin-top:0}
 .item-submenu{padding-left:34px!important;font-size:.94em!important}
+
+
+/* APP12 FIX — submenu ETA realmente recolhível */
+.submenu-eta.fechado{
+    display:none !important;
+}
+
+.submenu-eta:not(.fechado){
+    display:grid;
+}

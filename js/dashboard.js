@@ -431,13 +431,22 @@ botaoDashboard.addEventListener(
 botaoModuloEta.addEventListener(
     "click",
     function () {
-        const fechado =
-            submenuEta.classList.toggle("fechado");
+        const estaFechado =
+            submenuEta.classList.contains("fechado");
 
-        botaoModuloEta.setAttribute(
-            "aria-expanded",
-            String(!fechado)
-        );
+        if (estaFechado) {
+            submenuEta.classList.remove("fechado");
+            botaoModuloEta.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+        } else {
+            submenuEta.classList.add("fechado");
+            botaoModuloEta.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
     }
 );
 
