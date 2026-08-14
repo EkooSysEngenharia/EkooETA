@@ -439,3 +439,31 @@ button {
 .submenu-eta:not(.fechado){
     display:grid;
 }
+
+/* APP13 - Dashboard exclusiva de Visita Técnica */
+.vt-dashboard{padding:28px 30px 40px}
+.vt-cabecalho{margin-bottom:24px}
+.vt-cabecalho h1{margin:4px 0 6px;font-size:30px;color:#087c43}
+.vt-cabecalho p{color:#6d777b}
+.vt-indicadores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.vt-card-indicador{background:#fff;border:1px solid #dfe6e3;border-radius:16px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+.vt-card-indicador .vt-icone{width:46px;height:46px;border-radius:12px;background:#e8f7ef;display:grid;place-items:center;font-size:22px}
+.vt-card-indicador div{display:flex;flex-direction:column}
+.vt-card-indicador strong{font-size:26px;color:#087c43;line-height:1.1}
+.vt-card-indicador span:last-child{font-size:13px;color:#68736e;margin-top:4px}
+.vt-bloco{background:#fff;border:1px solid #dfe6e3;border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 8px 24px rgba(0,0,0,.035)}
+.vt-titulo-bloco h2{margin:0 0 4px;font-size:19px}
+.vt-titulo-bloco p{margin:0;color:#748079;font-size:14px}
+.vt-acoes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:17px}
+.vt-acao{border:1px solid #dce6e1;background:#fff;border-radius:14px;padding:16px;text-align:left;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.vt-acao:hover{transform:translateY(-1px);border-color:#a9d8c1;box-shadow:0 8px 20px rgba(0,0,0,.05)}
+.vt-acao>span{font-size:22px}
+.vt-acao div{display:flex;flex-direction:column;gap:4px}
+.vt-acao strong{color:#087c43;font-size:14px}
+.vt-acao small{color:#707c76;line-height:1.35}
+.vt-vazio{margin-top:18px;border:1px dashed #cbd8d2;border-radius:14px;padding:30px;text-align:center;color:#6d7873}
+.vt-vazio>span{display:block;font-size:30px;margin-bottom:8px}
+.vt-vazio strong{display:block;color:#43504a;margin-bottom:5px}
+.vt-vazio p{margin:0;font-size:14px}
+@media(max-width:1050px){.vt-indicadores,.vt-acoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:768px){.vt-dashboard{padding:82px 18px 28px}.vt-indicadores,.vt-acoes{grid-template-columns:1fr}.vt-cabecalho h1{font-size:26px}}

@@ -468,15 +468,150 @@ botaoAgenda.addEventListener(
     }
 );
 
+function montarDashboardVisitaTecnica() {
+    prepararAreaModulo(
+        botaoVisitaTecnica
+    );
+
+    conteudoModulo.innerHTML = `
+        <section class="vt-dashboard">
+            <header class="vt-cabecalho">
+                <div>
+                    <p class="saudacao">
+                        Ekoo Manager
+                    </p>
+
+                    <h1>
+                        Visita Técnica
+                    </h1>
+
+                    <p>
+                        Gestão das visitas técnicas da Ekoo Sys.
+                    </p>
+                </div>
+            </header>
+
+            <section class="vt-indicadores">
+                <article class="vt-card-indicador">
+                    <span class="vt-icone">👥</span>
+                    <div>
+                        <strong>0</strong>
+                        <span>Clientes cadastrados</span>
+                    </div>
+                </article>
+
+                <article class="vt-card-indicador">
+                    <span class="vt-icone">📋</span>
+                    <div>
+                        <strong>0</strong>
+                        <span>Visitas realizadas</span>
+                    </div>
+                </article>
+
+                <article class="vt-card-indicador">
+                    <span class="vt-icone">🕒</span>
+                    <div>
+                        <strong>0</strong>
+                        <span>Visitas em aberto</span>
+                    </div>
+                </article>
+
+                <article class="vt-card-indicador">
+                    <span class="vt-icone">📄</span>
+                    <div>
+                        <strong>0</strong>
+                        <span>Relatórios emitidos</span>
+                    </div>
+                </article>
+            </section>
+
+            <section class="vt-bloco">
+                <div class="vt-titulo-bloco">
+                    <div>
+                        <h2>Ações rápidas</h2>
+                        <p>
+                            Acesse as principais áreas de Visita Técnica.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="vt-acoes">
+                    <button class="vt-acao" type="button" data-vt-acao="cliente">
+                        <span>👥</span>
+                        <div>
+                            <strong>+ Novo cliente</strong>
+                            <small>Cadastrar cliente de Visita Técnica</small>
+                        </div>
+                    </button>
+
+                    <button class="vt-acao" type="button" data-vt-acao="visita">
+                        <span>📋</span>
+                        <div>
+                            <strong>+ Nova visita</strong>
+                            <small>Registrar uma nova visita técnica</small>
+                        </div>
+                    </button>
+
+                    <button class="vt-acao" type="button" data-vt-acao="historico">
+                        <span>🗂️</span>
+                        <div>
+                            <strong>Histórico</strong>
+                            <small>Consultar visitas realizadas</small>
+                        </div>
+                    </button>
+
+                    <button class="vt-acao" type="button" data-vt-acao="relatorios">
+                        <span>📄</span>
+                        <div>
+                            <strong>Relatórios</strong>
+                            <small>Acessar relatórios de visitas</small>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <section class="vt-bloco">
+                <div class="vt-titulo-bloco">
+                    <div>
+                        <h2>Resumo da operação</h2>
+                        <p>
+                            Acompanhamento das visitas técnicas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="vt-vazio">
+                    <span>🧾</span>
+                    <strong>
+                        Nenhuma visita técnica registrada ainda.
+                    </strong>
+                    <p>
+                        Os dados deste módulo aparecerão aqui conforme
+                        começarmos a cadastrar clientes e visitas.
+                    </p>
+                </div>
+            </section>
+        </section>
+    `;
+
+    conteudoModulo
+        .querySelectorAll("[data-vt-acao]")
+        .forEach(function (botao) {
+            botao.addEventListener(
+                "click",
+                function () {
+                    alert(
+                        "Esta função será criada na próxima etapa."
+                    );
+                }
+            );
+        });
+}
+
+
 botaoVisitaTecnica.addEventListener(
     "click",
-    function () {
-        mostrarPreparacao(
-            "Visita Técnica",
-            "Módulo em preparação.",
-            botaoVisitaTecnica
-        );
-    }
+    montarDashboardVisitaTecnica
 );
 
 botaoRelatorios.addEventListener(

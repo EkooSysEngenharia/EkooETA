@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app12-fix-menu-v2";
+    "app13-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
