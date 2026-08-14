@@ -41,6 +41,12 @@ import {
     montarModuloAgenda
 } from "./agenda.js";
 
+import {
+    montarClientesVT,
+    montarAgendaVT,
+    montarRelatoriosVT
+} from "./visitaTecnica.js";
+
 
 const nomeUsuario =
     document.getElementById("nomeUsuario");
@@ -77,6 +83,15 @@ const submenuVisitaTecnica =
 
 const botaoDashboardVisitaTecnica =
     document.getElementById("botaoDashboardVisitaTecnica");
+
+const botaoClientesVisitaTecnica =
+    document.getElementById("botaoClientesVisitaTecnica");
+
+const botaoRelatoriosVisitaTecnica =
+    document.getElementById("botaoRelatoriosVisitaTecnica");
+
+const botaoAgendaVisitaTecnica =
+    document.getElementById("botaoAgendaVisitaTecnica");
 
 const botaoAgenda =
     document.getElementById("botaoAgenda");
@@ -617,9 +632,18 @@ function montarDashboardVisitaTecnica() {
             botao.addEventListener(
                 "click",
                 function () {
-                    alert(
-                        "Esta função será criada na próxima etapa."
-                    );
+                    const acao =
+                        botao.dataset.vtAcao;
+
+                    if (acao === "cliente") {
+                        montarClientesVT(conteudoModulo);
+                    } else if (acao === "relatorios") {
+                        montarRelatoriosVT(conteudoModulo);
+                    } else if (acao === "visita") {
+                        montarAgendaVT(conteudoModulo);
+                    } else if (acao === "historico") {
+                        montarAgendaVT(conteudoModulo);
+                    }
                 }
             );
         });
@@ -659,6 +683,30 @@ botaoVisitaTecnica.addEventListener(
 botaoDashboardVisitaTecnica.addEventListener(
     "click",
     montarDashboardVisitaTecnica
+);
+
+botaoClientesVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        prepararAreaModulo(botaoClientesVisitaTecnica);
+        montarClientesVT(conteudoModulo);
+    }
+);
+
+botaoRelatoriosVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        prepararAreaModulo(botaoRelatoriosVisitaTecnica);
+        montarRelatoriosVT(conteudoModulo);
+    }
+);
+
+botaoAgendaVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        prepararAreaModulo(botaoAgendaVisitaTecnica);
+        montarAgendaVT(conteudoModulo);
+    }
 );
 
 botaoRelatorios.addEventListener(

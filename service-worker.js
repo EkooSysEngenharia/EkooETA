@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app14-v1";
+    "app15-vt-funcional-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
@@ -35,6 +35,7 @@ const ARQUIVOS_APP = [
     "js/pwa.js",
     "js/login.js",
     "js/dashboard.js",
+    "js/visitaTecnica.js",
     "js/clientes.js",
     "js/cadastro.js",
     "js/eta.js",

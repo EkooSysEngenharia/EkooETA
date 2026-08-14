@@ -471,3 +471,12 @@ button {
 /* APP14 - organização dos módulos ETA e Visita Técnica */
 #submenuVisitaTecnica.fechado{display:none !important}
 #submenuVisitaTecnica:not(.fechado){display:grid}
+
+/* APP15 - módulos funcionais da Visita Técnica */
+.vt-btn-principal{border:0;border-radius:12px;background:#00a84f;color:#fff;padding:13px 18px;font-weight:700;cursor:pointer}
+.vt-lista{display:grid;gap:12px;margin-top:18px}
+.vt-item{background:#fff;border:1px solid #dfe6e3;border-left:5px solid #22b573;border-radius:16px;padding:17px;display:flex;justify-content:space-between;align-items:center;gap:18px;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+.vt-item.status-atrasada{border-left-color:#dc3545}.vt-item.status-realizada{border-left-color:#8a9690}
+.vt-item h3{margin:0 0 5px}.vt-item p{margin:3px 0;color:#5e6964}.vt-item small{color:#7a847f}
+.vt-item-acoes{display:flex;gap:7px;flex-wrap:wrap}.vt-item-acoes button{border:1px solid #d8e2dd;background:#fff;border-radius:9px;padding:8px 11px;cursor:pointer}.vt-item-acoes .perigo{color:#b42318}
+@media(max-width:768px){.vt-cabecalho{display:block}.vt-btn-principal{width:100%;margin-top:14px}.vt-item{display:block}.vt-item-acoes{margin-top:13px}}
