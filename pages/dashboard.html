@@ -111,6 +111,7 @@
                     </button>
 
                     <div id="submenuEta" class="submenu-eta fechado">
+                        <button id="botaoDashboardEta" class="item-menu item-submenu" type="button">🏠 Dashboard ETA</button>
                         <button id="botaoClientes" class="item-menu item-submenu" type="button">👥 Clientes</button>
                         <button id="botaoMedicoesEta" class="item-menu item-submenu" type="button">🧪 Medições</button>
                         <button id="botaoRelatorios" class="item-menu item-submenu" type="button">📄 Relatórios</button>
@@ -118,13 +119,21 @@
                     </div>
                 </div>
 
-                <button
-                    id="botaoVisitaTecnica"
-                    class="item-menu"
-                    type="button"
-                >
-                    🧾 Visita Técnica
-                </button>
+                <div class="grupo-menu">
+                    <button
+                        id="botaoVisitaTecnica"
+                        class="item-menu item-menu-pai"
+                        type="button"
+                        aria-expanded="false"
+                    >
+                        <span>🧾 Visita Técnica</span>
+                        <span class="seta-submenu">⌄</span>
+                    </button>
+
+                    <div id="submenuVisitaTecnica" class="submenu-eta fechado">
+                        <button id="botaoDashboardVisitaTecnica" class="item-menu item-submenu" type="button">🏠 Dashboard Visita Técnica</button>
+                    </div>
+                </div>
 
                 <button
                     id="botaoConfiguracoes"

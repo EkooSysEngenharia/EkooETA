@@ -467,3 +467,7 @@ button {
 .vt-vazio p{margin:0;font-size:14px}
 @media(max-width:1050px){.vt-indicadores,.vt-acoes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:768px){.vt-dashboard{padding:82px 18px 28px}.vt-indicadores,.vt-acoes{grid-template-columns:1fr}.vt-cabecalho h1{font-size:26px}}
+
+/* APP14 - organização dos módulos ETA e Visita Técnica */
+#submenuVisitaTecnica.fechado{display:none !important}
+#submenuVisitaTecnica:not(.fechado){display:grid}

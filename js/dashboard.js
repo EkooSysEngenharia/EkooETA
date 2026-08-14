@@ -69,6 +69,15 @@ const botaoRelatorios =
 const botaoVisitaTecnica =
     document.getElementById("botaoVisitaTecnica");
 
+const botaoDashboardEta =
+    document.getElementById("botaoDashboardEta");
+
+const submenuVisitaTecnica =
+    document.getElementById("submenuVisitaTecnica");
+
+const botaoDashboardVisitaTecnica =
+    document.getElementById("botaoDashboardVisitaTecnica");
+
 const botaoAgenda =
     document.getElementById("botaoAgenda");
 
@@ -428,6 +437,14 @@ botaoDashboard.addEventListener(
     mostrarDashboard
 );
 
+botaoDashboardEta.addEventListener(
+    "click",
+    function () {
+        botaoDashboard.click();
+    }
+);
+
+
 botaoModuloEta.addEventListener(
     "click",
     function () {
@@ -610,6 +627,36 @@ function montarDashboardVisitaTecnica() {
 
 
 botaoVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        const estaFechado =
+            submenuVisitaTecnica.classList.contains(
+                "fechado"
+            );
+
+        if (estaFechado) {
+            submenuVisitaTecnica.classList.remove(
+                "fechado"
+            );
+
+            botaoVisitaTecnica.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+        } else {
+            submenuVisitaTecnica.classList.add(
+                "fechado"
+            );
+
+            botaoVisitaTecnica.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+    }
+);
+
+botaoDashboardVisitaTecnica.addEventListener(
     "click",
     montarDashboardVisitaTecnica
 );
