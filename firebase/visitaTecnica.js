@@ -6,6 +6,7 @@ import {
 
 const clientesVT = collection(db,"clientesVisitaTecnica");
 const agendaVT = collection(db,"agendaVisitaTecnica");
+const visitasVT = collection(db,"visitasTecnicas");
 
 async function listar(colecao,uid){
  const q=query(colecao,where("usuarioId","==",uid));
@@ -19,3 +20,8 @@ export const excluirClienteVT=id=>executarEscritaOffline(()=>deleteDoc(doc(db,"c
 export const criarAgendaVT=d=>executarEscritaOffline(()=>addDoc(agendaVT,d),"agenda de visita técnica");
 export const atualizarAgendaVT=(id,d)=>executarEscritaOffline(()=>updateDoc(doc(db,"agendaVisitaTecnica",id),d),"agenda de visita técnica");
 export const excluirAgendaVT=id=>executarEscritaOffline(()=>deleteDoc(doc(db,"agendaVisitaTecnica",id)),"agenda de visita técnica");
+
+export const listarVisitasVT=uid=>listar(visitasVT,uid);
+export const criarVisitaVT=d=>executarEscritaOffline(()=>addDoc(visitasVT,d),"visita técnica");
+export const atualizarVisitaVT=(id,d)=>executarEscritaOffline(()=>updateDoc(doc(db,"visitasTecnicas",id),d),"visita técnica");
+export const excluirVisitaVT=id=>executarEscritaOffline(()=>deleteDoc(doc(db,"visitasTecnicas",id)),"visita técnica");

@@ -533,3 +533,6 @@ button {
         grid-template-columns:1fr;
     }
 }
+
+/* APP16 */
+.vt-form-visita{display:grid;gap:10px}.vt-form-visita label{font-weight:700;color:#39463f;margin-top:4px}.vt-form-visita input,.vt-form-visita select,.vt-form-visita textarea{width:100%;box-sizing:border-box;border:1px solid #d6e0db;border-radius:10px;padding:11px 12px;background:#fff;font:inherit}.vt-form-visita textarea{resize:vertical}

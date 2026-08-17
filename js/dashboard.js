@@ -44,7 +44,9 @@ import {
 import {
     montarClientesVT,
     montarAgendaVT,
-    montarRelatoriosVT
+    montarRelatoriosVT,
+    montarNovaVisitaVT,
+    montarHistoricoVT
 } from "./visitaTecnica.js";
 
 
@@ -640,9 +642,9 @@ function montarDashboardVisitaTecnica() {
                     } else if (acao === "relatorios") {
                         montarRelatoriosVT(conteudoModulo);
                     } else if (acao === "visita") {
-                        montarAgendaVT(conteudoModulo);
+                        montarNovaVisitaVT(conteudoModulo);
                     } else if (acao === "historico") {
-                        montarAgendaVT(conteudoModulo);
+                        montarHistoricoVT(conteudoModulo);
                     }
                 }
             );
