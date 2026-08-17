@@ -9,18 +9,114 @@ const nome=c=>c.nome||c.razaoSocial||"Cliente";
 const hoje=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)};
 const status=a=>a.status==="realizada"?"realizada":(a.dataHora&&new Date(a.dataHora)<new Date()?"atrasada":"agendada");
 
+const apenasNumeros = valor =>
+    String(valor || "").replace(/\D/g, "");
+
+function mascaraCpf(valor) {
+    return apenasNumeros(valor)
+        .slice(0, 11)
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+}
+
+function mascaraCnpj(valor) {
+    return apenasNumeros(valor)
+        .slice(0, 14)
+        .replace(/^(\d{2})(\d)/, "$1.$2")
+        .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        .replace(/\.(\d{3})(\d)/, ".$1/$2")
+        .replace(/(\d{4})(\d{1,2})$/, "$1-$2");
+}
+
+
 export async function montarClientesVT(container){
  const uid=auth.currentUser?.uid;if(!uid)return;
- container.innerHTML=`<section class="vt-dashboard"><header class="vt-cabecalho"><div><p class="saudacao">Visita Técnica</p><h1>👥 Clientes</h1><p>Cadastro exclusivo da Visita Técnica.</p></div><button id="vtNovoCliente" class="vt-btn-principal">+ Novo cliente</button></header><div id="vtListaClientes" class="vt-lista"></div><div id="vtModalCliente" class="agenda-modal escondido"><div class="agenda-modal-card"><div class="agenda-modal-topo"><h2>Cliente</h2><button id="vtFechaCliente">×</button></div><form id="vtFormCliente"><input id="vtClienteId" type="hidden"><label>Nome / Razão social *</label><input id="vtNome" required><label>CNPJ / CPF</label><input id="vtDocumento"><div class="agenda-duas-colunas"><div><label>Telefone</label><input id="vtTelefone"></div><div><label>E-mail</label><input id="vtEmail" type="email"></div></div><label>Endereço</label><input id="vtEndereco"><label>Tipo de estabelecimento</label><input id="vtTipo" placeholder="Ex.: supermercado, hotel, indústria"><div class="agenda-acoes-form"><button type="button" id="vtCancelaCliente">Cancelar</button><button class="vt-btn-principal" type="submit">Salvar</button></div></form></div></div></section>`;
+ container.innerHTML=`<section class="vt-dashboard"><header class="vt-cabecalho"><div><p class="saudacao">Visita Técnica</p><h1>👥 Clientes</h1><p>Cadastro exclusivo da Visita Técnica.</p></div><button id="vtNovoCliente" class="vt-btn-principal">+ Novo cliente</button></header><div id="vtListaClientes" class="vt-lista"></div><div id="vtModalCliente" class="agenda-modal escondido"><div class="agenda-modal-card"><div class="agenda-modal-topo"><h2>Cliente</h2><button id="vtFechaCliente">×</button></div><form id="vtFormCliente"><input id="vtClienteId" type="hidden"><label>Nome / Razão social *</label><input id="vtNome" required><label>Tipo de cadastro *</label>
+<div class="vt-tipo-pessoa">
+    <label class="vt-opcao-tipo">
+        <input
+            type="radio"
+            name="vtTipoPessoa"
+            value="juridica"
+            checked
+        >
+        <span>🏢 Pessoa Jurídica</span>
+    </label>
+
+    <label class="vt-opcao-tipo">
+        <input
+            type="radio"
+            name="vtTipoPessoa"
+            value="fisica"
+        >
+        <span>👤 Pessoa Física</span>
+    </label>
+</div>
+
+<label id="vtLabelDocumento">CNPJ</label>
+<input
+    id="vtDocumento"
+    inputmode="numeric"
+    maxlength="18"
+    placeholder="00.000.000/0000-00"
+>
+
+<div class="agenda-duas-colunas"><div><label>Telefone</label><input id="vtTelefone"></div><div><label>E-mail</label><input id="vtEmail" type="email"></div></div><label>Endereço</label><input id="vtEndereco"><label>Tipo de estabelecimento</label><input id="vtTipo" placeholder="Ex.: supermercado, hotel, indústria"><div class="agenda-acoes-form"><button type="button" id="vtCancelaCliente">Cancelar</button><button class="vt-btn-principal" type="submit">Salvar</button></div></form></div></div></section>`;
  let dados=[];
  const lista=container.querySelector("#vtListaClientes"),modal=container.querySelector("#vtModalCliente"),form=container.querySelector("#vtFormCliente");
+ const documentoInput=container.querySelector("#vtDocumento");
+ const labelDocumento=container.querySelector("#vtLabelDocumento");
+ const radiosTipoPessoa=container.querySelectorAll('input[name="vtTipoPessoa"]');
+
+ function tipoPessoaSelecionado(){
+   return container.querySelector('input[name="vtTipoPessoa"]:checked')?.value || "juridica";
+ }
+
+ function atualizarTipoPessoa(){
+   const tipo=tipoPessoaSelecionado();
+   const valorAtual=apenasNumeros(documentoInput.value);
+
+   if(tipo==="fisica"){
+     labelDocumento.textContent="CPF";
+     documentoInput.maxLength=14;
+     documentoInput.placeholder="000.000.000-00";
+     documentoInput.value=mascaraCpf(valorAtual);
+   }else{
+     labelDocumento.textContent="CNPJ";
+     documentoInput.maxLength=18;
+     documentoInput.placeholder="00.000.000/0000-00";
+     documentoInput.value=mascaraCnpj(valorAtual);
+   }
+ }
+
+ radiosTipoPessoa.forEach(radio=>radio.addEventListener("change",atualizarTipoPessoa));
+ documentoInput.addEventListener("input",()=> {
+   documentoInput.value =
+     tipoPessoaSelecionado()==="fisica"
+       ? mascaraCpf(documentoInput.value)
+       : mascaraCnpj(documentoInput.value);
+ });
+ atualizarTipoPessoa();
  async function carregar(){dados=await listarClientesVT(uid);dados.sort((a,b)=>nome(a).localeCompare(nome(b)));lista.innerHTML=dados.length?dados.map(c=>`<article class="vt-item"><div><h3>${esc(nome(c))}</h3><p>${esc(c.tipo||"Tipo não informado")}${c.documento?" • "+esc(c.documento):""}</p><small>${esc(c.telefone||"")}${c.email?" • "+esc(c.email):""}</small></div><div class="vt-item-acoes"><button data-ed="${c.id}">Editar</button><button class="perigo" data-ex="${c.id}">Excluir</button></div></article>`).join(""):`<div class="vt-vazio"><span>👥</span><strong>Nenhum cliente cadastrado.</strong><p>Use “+ Novo cliente” para começar.</p></div>`;
  lista.querySelectorAll("[data-ed]").forEach(b=>b.onclick=()=>editar(b.dataset.ed));lista.querySelectorAll("[data-ex]").forEach(b=>b.onclick=async()=>{if(confirm("Excluir este cliente?")){await excluirClienteVT(b.dataset.ex);await carregar()}})}
  function fechar(){modal.classList.add("escondido");form.reset();container.querySelector("#vtClienteId").value=""}
- function novo(){form.reset();container.querySelector("#vtClienteId").value="";modal.classList.remove("escondido")}
- function editar(id){const c=dados.find(x=>x.id===id);if(!c)return;container.querySelector("#vtClienteId").value=id;container.querySelector("#vtNome").value=nome(c);container.querySelector("#vtDocumento").value=c.documento||"";container.querySelector("#vtTelefone").value=c.telefone||"";container.querySelector("#vtEmail").value=c.email||"";container.querySelector("#vtEndereco").value=c.endereco||"";container.querySelector("#vtTipo").value=c.tipo||"";modal.classList.remove("escondido")}
+ function novo(){
+ form.reset();
+ container.querySelector("#vtClienteId").value="";
+ const pj=container.querySelector('input[name="vtTipoPessoa"][value="juridica"]');
+ if(pj){pj.checked=true;}
+ atualizarTipoPessoa();
+ modal.classList.remove("escondido");
+}
+ function editar(id){const c=dados.find(x=>x.id===id);if(!c)return;container.querySelector("#vtClienteId").value=id;container.querySelector("#vtNome").value=nome(c);
+ const radioTipo=container.querySelector(`input[name="vtTipoPessoa"][value="${c.tipoPessoa||"juridica"}"]`);
+ if(radioTipo){radioTipo.checked=true;}
+ atualizarTipoPessoa();
+ documentoInput.value=(c.tipoPessoa==="fisica"?mascaraCpf(c.documento||""):mascaraCnpj(c.documento||""));
+ container.querySelector("#vtTelefone").value=c.telefone||"";container.querySelector("#vtEmail").value=c.email||"";container.querySelector("#vtEndereco").value=c.endereco||"";container.querySelector("#vtTipo").value=c.tipo||"";modal.classList.remove("escondido")}
  container.querySelector("#vtNovoCliente").onclick=novo;container.querySelector("#vtFechaCliente").onclick=fechar;container.querySelector("#vtCancelaCliente").onclick=fechar;
- form.onsubmit=async e=>{e.preventDefault();const id=container.querySelector("#vtClienteId").value,d={usuarioId:uid,nome:container.querySelector("#vtNome").value.trim(),documento:container.querySelector("#vtDocumento").value.trim(),telefone:container.querySelector("#vtTelefone").value.trim(),email:container.querySelector("#vtEmail").value.trim(),endereco:container.querySelector("#vtEndereco").value.trim(),tipo:container.querySelector("#vtTipo").value.trim(),atualizadoEm:new Date().toISOString()};if(id)await atualizarClienteVT(id,d);else await criarClienteVT({...d,criadoEm:new Date().toISOString()});fechar();await carregar()};await carregar();
+ form.onsubmit=async e=>{e.preventDefault();const id=container.querySelector("#vtClienteId").value,d={usuarioId:uid,nome:container.querySelector("#vtNome").value.trim(),tipoPessoa:tipoPessoaSelecionado(),documento:documentoInput.value.trim(),telefone:container.querySelector("#vtTelefone").value.trim(),email:container.querySelector("#vtEmail").value.trim(),endereco:container.querySelector("#vtEndereco").value.trim(),tipo:container.querySelector("#vtTipo").value.trim(),atualizadoEm:new Date().toISOString()};if(id)await atualizarClienteVT(id,d);else await criarClienteVT({...d,criadoEm:new Date().toISOString()});fechar();await carregar()};await carregar();
 }
 
 export async function montarAgendaVT(container){

@@ -480,3 +480,56 @@ button {
 .vt-item h3{margin:0 0 5px}.vt-item p{margin:3px 0;color:#5e6964}.vt-item small{color:#7a847f}
 .vt-item-acoes{display:flex;gap:7px;flex-wrap:wrap}.vt-item-acoes button{border:1px solid #d8e2dd;background:#fff;border-radius:9px;padding:8px 11px;cursor:pointer}.vt-item-acoes .perigo{color:#b42318}
 @media(max-width:768px){.vt-cabecalho{display:block}.vt-btn-principal{width:100%;margin-top:14px}.vt-item{display:block}.vt-item-acoes{margin-top:13px}}
+
+
+/* APP15 FIX — cadastro de cliente da Visita Técnica */
+.vt-tipo-pessoa{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:4px;
+}
+
+.vt-opcao-tipo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 12px;
+    border:1px solid #d7e2dd;
+    border-radius:10px;
+    background:#fff;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.vt-opcao-tipo input{
+    width:auto !important;
+    accent-color:#009846;
+}
+
+.vt-opcao-tipo:has(input:checked){
+    border-color:#009846;
+    background:#eaf8f0;
+    color:#087c43;
+}
+
+.agenda-acoes-form .vt-btn-principal,
+.vt-modal .vt-btn-principal,
+.vt-btn-principal{
+    border:0 !important;
+    background:#009846 !important;
+    color:#ffffff !important;
+    font-weight:700 !important;
+    box-shadow:0 6px 16px rgba(0,152,70,.16);
+}
+
+.agenda-acoes-form .vt-btn-principal:hover,
+.vt-btn-principal:hover{
+    background:#007238 !important;
+}
+
+@media(max-width:520px){
+    .vt-tipo-pessoa{
+        grid-template-columns:1fr;
+    }
+}
