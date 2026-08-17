@@ -42,6 +42,11 @@ import {
 } from "./agenda.js";
 
 import {
+    listarClientesVT,
+    listarVisitasVT
+} from "../firebase/visitaTecnica.js";
+
+import {
     montarClientesVT,
     montarAgendaVT,
     montarRelatoriosVT,
@@ -502,185 +507,93 @@ botaoAgenda.addEventListener(
     }
 );
 
-function montarDashboardVisitaTecnica() {
-    prepararAreaModulo(
-        botaoVisitaTecnica
-    );
+async function montarDashboardVisitaTecnica() {
+    prepararAreaModulo(botaoVisitaTecnica);
+
+    const uid = auth.currentUser?.uid;
+    let clientes = [];
+    let visitas = [];
+
+    if (uid) {
+        try {
+            [clientes, visitas] = await Promise.all([
+                listarClientesVT(uid),
+                listarVisitasVT(uid)
+            ]);
+        } catch (erro) {
+            console.error("Erro ao carregar Dashboard da Visita Técnica:", erro);
+        }
+    }
+
+    visitas.sort((a,b) => String(b.dataHora || "").localeCompare(String(a.dataHora || "")));
+
+    const realizadas = visitas.filter(v => v.status === "concluida").length;
+    const emAberto = visitas.filter(v => v.status !== "concluida").length;
+
+    const resumo = visitas.length
+        ? `<div class="vt-lista">${visitas.slice(0,5).map(v => {
+            const ok = (v.checklist || []).filter(x => x.status === "OK").length;
+            const nok = (v.checklist || []).filter(x => x.status === "NOK").length;
+            const nv = (v.checklist || []).filter(x => x.status === "NAO_VERIFICADO").length;
+            const data = v.dataHora ? new Date(v.dataHora).toLocaleString("pt-BR") : "Data não informada";
+            return `<article class="vt-item">
+                <div>
+                    <h3>${v.clienteNome || "Cliente"}</h3>
+                    <p>✓ ${ok} OK &nbsp; • &nbsp; ✕ ${nok} NOK &nbsp; • &nbsp; — ${nv} não verificados</p>
+                    <small>📅 ${data}</small>
+                </div>
+            </article>`;
+        }).join("")}</div>`
+        : `<div class="vt-vazio">
+            <span>🧾</span>
+            <strong>Nenhuma visita técnica registrada ainda.</strong>
+            <p>As visitas salvas aparecerão aqui automaticamente.</p>
+        </div>`;
 
     conteudoModulo.innerHTML = `
         <section class="vt-dashboard">
             <header class="vt-cabecalho">
                 <div>
-                    <p class="saudacao">
-                        Ekoo Manager
-                    </p>
-
-                    <h1>
-                        Visita Técnica
-                    </h1>
-
-                    <p>
-                        Gestão das visitas técnicas da Ekoo Sys.
-                    </p>
+                    <p class="saudacao">Ekoo Manager</p>
+                    <h1>Visita Técnica</h1>
+                    <p>Gestão das visitas técnicas da Ekoo Sys.</p>
                 </div>
             </header>
 
             <section class="vt-indicadores">
-                <article class="vt-card-indicador">
-                    <span class="vt-icone">👥</span>
-                    <div>
-                        <strong>0</strong>
-                        <span>Clientes cadastrados</span>
-                    </div>
-                </article>
-
-                <article class="vt-card-indicador">
-                    <span class="vt-icone">📋</span>
-                    <div>
-                        <strong>0</strong>
-                        <span>Visitas realizadas</span>
-                    </div>
-                </article>
-
-                <article class="vt-card-indicador">
-                    <span class="vt-icone">🕒</span>
-                    <div>
-                        <strong>0</strong>
-                        <span>Visitas em aberto</span>
-                    </div>
-                </article>
-
-                <article class="vt-card-indicador">
-                    <span class="vt-icone">📄</span>
-                    <div>
-                        <strong>0</strong>
-                        <span>Relatórios emitidos</span>
-                    </div>
-                </article>
+                <article class="vt-card-indicador"><span class="vt-icone">👥</span><div><strong>${clientes.length}</strong><span>Clientes cadastrados</span></div></article>
+                <article class="vt-card-indicador"><span class="vt-icone">📋</span><div><strong>${realizadas}</strong><span>Visitas realizadas</span></div></article>
+                <article class="vt-card-indicador"><span class="vt-icone">🕒</span><div><strong>${emAberto}</strong><span>Visitas em aberto</span></div></article>
+                <article class="vt-card-indicador"><span class="vt-icone">📄</span><div><strong>0</strong><span>Relatórios emitidos</span></div></article>
             </section>
 
             <section class="vt-bloco">
-                <div class="vt-titulo-bloco">
-                    <div>
-                        <h2>Ações rápidas</h2>
-                        <p>
-                            Acesse as principais áreas de Visita Técnica.
-                        </p>
-                    </div>
-                </div>
-
+                <div class="vt-titulo-bloco"><div><h2>Ações rápidas</h2><p>Acesse as principais áreas de Visita Técnica.</p></div></div>
                 <div class="vt-acoes">
-                    <button class="vt-acao" type="button" data-vt-acao="cliente">
-                        <span>👥</span>
-                        <div>
-                            <strong>+ Novo cliente</strong>
-                            <small>Cadastrar cliente de Visita Técnica</small>
-                        </div>
-                    </button>
-
-                    <button class="vt-acao" type="button" data-vt-acao="visita">
-                        <span>📋</span>
-                        <div>
-                            <strong>+ Nova visita</strong>
-                            <small>Registrar uma nova visita técnica</small>
-                        </div>
-                    </button>
-
-                    <button class="vt-acao" type="button" data-vt-acao="historico">
-                        <span>🗂️</span>
-                        <div>
-                            <strong>Histórico</strong>
-                            <small>Consultar visitas realizadas</small>
-                        </div>
-                    </button>
-
-                    <button class="vt-acao" type="button" data-vt-acao="relatorios">
-                        <span>📄</span>
-                        <div>
-                            <strong>Relatórios</strong>
-                            <small>Acessar relatórios de visitas</small>
-                        </div>
-                    </button>
+                    <button class="vt-acao" type="button" data-vt-acao="cliente"><span>👥</span><div><strong>+ Novo cliente</strong><small>Cadastrar cliente de Visita Técnica</small></div></button>
+                    <button class="vt-acao" type="button" data-vt-acao="visita"><span>📋</span><div><strong>+ Nova visita</strong><small>Registrar uma nova visita técnica</small></div></button>
+                    <button class="vt-acao" type="button" data-vt-acao="historico"><span>🗂️</span><div><strong>Histórico</strong><small>Consultar visitas realizadas</small></div></button>
+                    <button class="vt-acao" type="button" data-vt-acao="relatorios"><span>📄</span><div><strong>Relatórios</strong><small>Acessar relatórios de visitas</small></div></button>
                 </div>
             </section>
 
             <section class="vt-bloco">
-                <div class="vt-titulo-bloco">
-                    <div>
-                        <h2>Resumo da operação</h2>
-                        <p>
-                            Acompanhamento das visitas técnicas.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="vt-vazio">
-                    <span>🧾</span>
-                    <strong>
-                        Nenhuma visita técnica registrada ainda.
-                    </strong>
-                    <p>
-                        Os dados deste módulo aparecerão aqui conforme
-                        começarmos a cadastrar clientes e visitas.
-                    </p>
-                </div>
+                <div class="vt-titulo-bloco"><div><h2>Resumo da operação</h2><p>Últimas visitas técnicas registradas.</p></div></div>
+                ${resumo}
             </section>
         </section>
     `;
 
-    conteudoModulo
-        .querySelectorAll("[data-vt-acao]")
-        .forEach(function (botao) {
-            botao.addEventListener(
-                "click",
-                function () {
-                    const acao =
-                        botao.dataset.vtAcao;
-
-                    if (acao === "cliente") {
-                        montarClientesVT(conteudoModulo);
-                    } else if (acao === "relatorios") {
-                        montarRelatoriosVT(conteudoModulo);
-                    } else if (acao === "visita") {
-                        montarNovaVisitaVT(conteudoModulo);
-                    } else if (acao === "historico") {
-                        montarHistoricoVT(conteudoModulo);
-                    }
-                }
-            );
+    conteudoModulo.querySelectorAll("[data-vt-acao]").forEach(botao => {
+        botao.addEventListener("click", function () {
+            const acao = botao.dataset.vtAcao;
+            if (acao === "cliente") montarClientesVT(conteudoModulo);
+            else if (acao === "relatorios") montarRelatoriosVT(conteudoModulo);
+            else if (acao === "visita") montarNovaVisitaVT(conteudoModulo);
+            else if (acao === "historico") montarHistoricoVT(conteudoModulo);
         });
+    });
 }
-
-
-botaoVisitaTecnica.addEventListener(
-    "click",
-    function () {
-        const estaFechado =
-            submenuVisitaTecnica.classList.contains(
-                "fechado"
-            );
-
-        if (estaFechado) {
-            submenuVisitaTecnica.classList.remove(
-                "fechado"
-            );
-
-            botaoVisitaTecnica.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-        } else {
-            submenuVisitaTecnica.classList.add(
-                "fechado"
-            );
-
-            botaoVisitaTecnica.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-        }
-    }
-);
 
 botaoDashboardVisitaTecnica.addEventListener(
     "click",
