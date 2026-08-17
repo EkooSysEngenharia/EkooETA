@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app16-v1";
+    "app17-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;

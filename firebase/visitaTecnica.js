@@ -7,6 +7,7 @@ import {
 const clientesVT = collection(db,"clientesVisitaTecnica");
 const agendaVT = collection(db,"agendaVisitaTecnica");
 const visitasVT = collection(db,"visitasTecnicas");
+const condicionantesVT = collection(db,"condicionantesVisitaTecnica");
 
 async function listar(colecao,uid){
  const q=query(colecao,where("usuarioId","==",uid));
@@ -25,3 +26,13 @@ export const listarVisitasVT=uid=>listar(visitasVT,uid);
 export const criarVisitaVT=d=>executarEscritaOffline(()=>addDoc(visitasVT,d),"visita técnica");
 export const atualizarVisitaVT=(id,d)=>executarEscritaOffline(()=>updateDoc(doc(db,"visitasTecnicas",id),d),"visita técnica");
 export const excluirVisitaVT=id=>executarEscritaOffline(()=>deleteDoc(doc(db,"visitasTecnicas",id)),"visita técnica");
+
+export async function listarCondicionantesVT(uid,clienteId){
+ const q=query(condicionantesVT,where("usuarioId","==",uid));
+ const r=await getDocs(q); const a=[];
+ r.forEach(d=>{const x={id:d.id,...d.data()};if(x.clienteId===clienteId)a.push(x)});
+ return a;
+}
+export const criarCondicionanteVT=d=>executarEscritaOffline(()=>addDoc(condicionantesVT,d),"condicionante");
+export const atualizarCondicionanteVT=(id,d)=>executarEscritaOffline(()=>updateDoc(doc(db,"condicionantesVisitaTecnica",id),d),"condicionante");
+export const excluirCondicionanteVT=id=>executarEscritaOffline(()=>deleteDoc(doc(db,"condicionantesVisitaTecnica",id)),"condicionante");
