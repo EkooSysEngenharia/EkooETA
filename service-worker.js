@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app17-agenda-iniciar-v4";
+    "app17-agenda-corrigida-v5";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
