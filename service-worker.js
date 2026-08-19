@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app17-dashboard-v2";
+    "app17-seta-visita-v3";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;

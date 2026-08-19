@@ -595,6 +595,28 @@ async function montarDashboardVisitaTecnica() {
     });
 }
 
+botaoVisitaTecnica.addEventListener(
+    "click",
+    function () {
+        const estaFechado =
+            submenuVisitaTecnica.classList.contains("fechado");
+
+        if (estaFechado) {
+            submenuVisitaTecnica.classList.remove("fechado");
+            botaoVisitaTecnica.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+        } else {
+            submenuVisitaTecnica.classList.add("fechado");
+            botaoVisitaTecnica.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+    }
+);
+
 botaoDashboardVisitaTecnica.addEventListener(
     "click",
     montarDashboardVisitaTecnica
