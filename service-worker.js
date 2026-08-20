@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app18-relatorios-v1";
+    "app18-placeholder-eta-v2";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;

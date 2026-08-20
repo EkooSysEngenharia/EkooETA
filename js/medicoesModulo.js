@@ -607,7 +607,7 @@ function criarCardPontoMedicao(ponto) {
                         class="campo-cloro-medicao"
                         type="text"
                         inputmode="decimal"
-                        placeholder="Ex.: 0,80"
+                        placeholder="0.0"
                     >
 
                 </div>
@@ -622,7 +622,7 @@ function criarCardPontoMedicao(ponto) {
                         class="campo-ph-medicao"
                         type="text"
                         inputmode="decimal"
-                        placeholder="Ex.: 7,20"
+                        placeholder="0.0"
                     >
 
                 </div>
