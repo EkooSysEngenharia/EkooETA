@@ -918,6 +918,32 @@ function gerarRelatorioPdf() {
                     font-size: 12px;
                 }
 
+                .tabela-resultados th:nth-child(1),
+                .tabela-resultados td:nth-child(1) {
+                    width: 25%;
+                }
+
+                .tabela-resultados th:nth-child(2),
+                .tabela-resultados td:nth-child(2) {
+                    width: 20%;
+                }
+
+                .tabela-resultados th:nth-child(3),
+                .tabela-resultados td:nth-child(3) {
+                    width: 15%;
+                }
+
+                .tabela-resultados th:nth-child(4),
+                .tabela-resultados td:nth-child(4) {
+                    width: 40%;
+                }
+
+                .observacao-ponto {
+                    white-space: normal;
+                    line-height: 1.45;
+                    vertical-align: top;
+                }
+
                 .valor-indicador {
                     display: flex;
                     align-items: center;
@@ -1189,12 +1215,9 @@ function criarPaginaRelatorio(
         Array.from(
             new Set(
                 medicoes
-                    .flatMap(
+                    .map(
                         function (medicao) {
-                            return [
-                                medicao.observacaoGeral,
-                                medicao.observacao
-                            ];
+                            return medicao.observacaoGeral;
                         }
                     )
                     .filter(Boolean)
@@ -1277,6 +1300,13 @@ function criarPaginaRelatorio(
                                     ></i>
 
                                 </div>
+                            </td>
+
+                            <td class="observacao-ponto">
+                                ${escaparHtml(
+                                    medicao.observacao ||
+                                    "—"
+                                )}
                             </td>
                         </tr>
                     `;
@@ -1422,6 +1452,7 @@ function criarPaginaRelatorio(
                         <th>Ponto de coleta</th>
                         <th>Cloro (mg/L)</th>
                         <th>pH</th>
+                        <th>Observação</th>
                     </tr>
                 </thead>
 
@@ -1476,7 +1507,7 @@ function criarPaginaRelatorio(
                         ? observacoes
                             .map(escaparHtml)
                             .join("<br><br>")
-                        : "Nenhuma observação registrada."
+                        : "Nenhuma observação geral registrada."
                 }
 
             </div>
