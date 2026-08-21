@@ -52,7 +52,7 @@ import {
     montarRelatoriosVT,
     montarNovaVisitaVT,
     montarHistoricoVT
-} from "./visitaTecnica.js";
+} from "./visitaTecnica.js?v=app19-fotos-v2";
 
 
 const nomeUsuario =
