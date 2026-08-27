@@ -295,8 +295,14 @@ export async function montarNovaVisitaVT(container,visitaId=null,preselecionado=
 
  q("#vtFormVisita").onsubmit=async e=>{
    e.preventDefault();
+   const botaoSalvar=q("#vtFormVisita button[type=submit]");
+   if(botaoSalvar.disabled)return; // evita clique duplo criando a visita mais de uma vez
    const c=clientes.find(x=>x.id===q("#vCliente").value);
    if(!c)return;
+   botaoSalvar.disabled=true;
+   const textoOriginalBotao=botaoSalvar.textContent;
+   botaoSalvar.textContent="Salvando...";
+   try{
    const cards=[...container.querySelectorAll(".vt-check-item")];
    const checklist=cards.map((card,i)=>{
      const base=condicionantesAtuais[i]||{};
@@ -324,6 +330,12 @@ export async function montarNovaVisitaVT(container,visitaId=null,preselecionado=
    if(!atual&&preselecionado?.agendaId)await atualizarAgendaVT(preselecionado.agendaId,{status:"realizada",realizadaEm:new Date().toISOString(),atualizadoEm:new Date().toISOString()});
    alert("Visita técnica salva com sucesso.");
    await montarHistoricoVT(container);
+   }catch(erro){
+    console.error(erro);
+    alert("Não foi possível salvar a visita técnica. Tente novamente.");
+    botaoSalvar.disabled=false;
+    botaoSalvar.textContent=textoOriginalBotao;
+   }
  };
 }
 
@@ -378,4 +390,3 @@ export async function montarRelatoriosVT(container){
  container.innerHTML=`<section class="vt-dashboard"><header class="vt-cabecalho"><div><p class="saudacao">Visita Técnica</p><h1>📄 Relatórios</h1><p>Relatórios profissionais em PDF e Excel.</p></div></header><div class="vt-lista">${a.length?a.map(v=>{const ok=(v.checklist||[]).filter(x=>x.status==="OK").length,nok=(v.checklist||[]).filter(x=>x.status==="NOK").length;return `<article class="vt-item vt-rel-card"><div><h3>${esc(v.clienteNome)}</h3><p>✓ ${ok} OK • ✕ ${nok} NOK • ${(v.checklist||[]).length} condicionantes</p><small>📅 ${vtDataBR(v.dataHora)} • ${esc(v.responsavel||"Responsável não informado")}</small></div><div class="vt-item-acoes"><button data-prev="${v.id}">👁 Visualizar</button><button class="vt-btn-pdf" data-pdf="${v.id}">📄 PDF</button><button class="vt-btn-excel" data-xls="${v.id}">📊 Excel</button></div></article>`}).join(""):`<div class="vt-vazio"><span>📄</span><strong>Nenhuma visita concluída ainda.</strong></div>`}</div><div id="vtRelDetalhe"></div></section>`;
  const detalhe=container.querySelector("#vtRelDetalhe");container.querySelectorAll("[data-prev]").forEach(b=>b.onclick=async()=>{const v=a.find(x=>x.id===b.dataset.prev);if(v){detalhe.innerHTML=await vtPreviewRelatorio(v);detalhe.scrollIntoView({behavior:"smooth",block:"start"})}});container.querySelectorAll("[data-pdf]").forEach(b=>b.onclick=async()=>{const v=a.find(x=>x.id===b.dataset.pdf);if(v)await vtGerarPDF(v)});container.querySelectorAll("[data-xls]").forEach(b=>b.onclick=()=>{const v=a.find(x=>x.id===b.dataset.xls);if(v)vtGerarExcel(v)});
 }
-
