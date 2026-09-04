@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app21-multiempresa-v1";
+    "app21-menu-sem-logo-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
