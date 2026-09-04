@@ -14,6 +14,10 @@ import {
 } from "../firebase/usuarios.js";
 
 import {
+    definirContextoEmpresa
+} from "../firebase/empresaContexto.js";
+
+import {
     listarEtas
 } from "../firebase/etas.js";
 
@@ -135,6 +139,7 @@ const totalAlertas =
 
 
 let usuarioAtualId = null;
+let empresaAtualId = null;
 
 
 function obterPrimeiroNome(nomeCompleto) {
@@ -432,6 +437,20 @@ onAuthStateChanged(
                 await buscarUsuario(
                     usuario.uid
                 );
+
+            const contextoEmpresa =
+                definirContextoEmpresa(
+                    usuario.uid,
+                    dados
+                );
+
+            empresaAtualId =
+                contextoEmpresa.empresaId;
+
+            console.info(
+                "Empresa ativa:",
+                empresaAtualId
+            );
 
             nomeUsuario.textContent =
                 dados

@@ -1,5 +1,5 @@
 const VERSAO_APP =
-    "app19-fotos-v2";
+    "app21-multiempresa-v1";
 
 const CACHE_APP =
     `ekoo-manager-${VERSAO_APP}`;
@@ -52,6 +52,7 @@ const ARQUIVOS_APP = [
     "firebase/medicoes.js",
     "firebase/pontos.js",
     "firebase/usuarios.js",
+    "firebase/empresaContexto.js",
 
     "assets/logo.png",
     "assets/icons/apple-touch-icon.png",
