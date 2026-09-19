@@ -213,7 +213,7 @@ export async function montarNovaVisitaVT(container,visitaId=null,preselecionado=
  <label>Cliente *</label><select id="vCliente" required><option value="">Selecione</option>${clientes.map(c=>`<option value="${c.id}">${esc(nome(c))}</option>`).join("")}</select>
  <div class="agenda-duas-colunas"><div><label>Data e hora *</label><input id="vData" type="datetime-local" required></div><div><label>Responsável Ekoo Sys</label><input id="vResp"></div></div>
  <label>Local da visita</label><input id="vLocal">
- <div class="vt-checklist-topo"><div><h2>Condicionantes ambientais</h2><p>Marque a situação verificada nesta visita.</p></div></div>
+ <div class="vt-checklist-topo"><div><h2>Condicionantes</h2><p>Marque a situação verificada nesta visita.</p></div></div>
  <div id="vChecklist"><div class="vt-vazio compacto"><span>📋</span><strong>Selecione um cliente.</strong><p>As condicionantes cadastradas para ele aparecerão aqui.</p></div></div>
  <section class="vt-fotos-bloco"><div class="vt-fotos-topo"><div><h2>📷 Registro fotográfico</h2><p>Adicione fotos tiradas agora ou escolha imagens da galeria.</p></div><span id="vFotoContador" class="vt-foto-contador">0 fotos</span></div>
  <div class="vt-foto-acoes"><button type="button" id="vAbrirCamera" class="vt-btn-principal">📷 Tirar foto</button><button type="button" id="vAbrirGaleria" class="vt-btn-secundario">🖼️ Escolher da galeria</button></div>
